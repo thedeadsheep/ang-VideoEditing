@@ -1,0 +1,22 @@
+<div class="grid">
+    <div class="source-input">
+        <app-source-input (videoFiles)="getVideo($event)">
+
+        </app-source-input>
+    </div>
+    <div class="player">
+        <app-video [videoLoad]="videoFile">
+
+        </app-video>
+    </div>
+    <div class="media-input">
+        <app-media-input>
+
+        </app-media-input>
+    </div>
+    <div class="video-timeline">
+        <app-video-timeline>
+
+        </app-video-timeline>
+    </div>
+</div>

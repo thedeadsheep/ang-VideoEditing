@@ -1,0 +1,43 @@
+<p>video works!</p>
+<video controls id="video-played">
+    <source src="" type="video/mp4">
+    <source src="" type="video/ogg">
+    Your browser does not support the video tag.
+</video>
+<div>
+    <button (click)="playVideo()">
+        play
+    </button>
+    <button (click)="pauseVideo()">
+        Pause
+    </button>
+    \<button (click)="next5Sec()">
+        >>
+    </button>
+    <button (click)="prev5Sec()">
+        prev
+    </button>
+    <button (click)="muteVol()">
+        Mute
+    </button>
+    <input type="range" id="volumm-range" min=1 max=100 (change)="changeVol()" id="slider-vol" [value]="volValue*100">
+    <div>
+        {{currentTime}}!<br>
+        <input type="range" id="time-range" [value]="currentTime" (change)="seekTime()">
+    </div>
+    <form [formGroup]="loopState" (ngSubmit)="markingLoop(null, null)">
+        <div>
+            <input type="number" formControlName="start">s -->
+            <input type="number" formControlName="end">s
+        </div>
+        <div>
+            <button [disabled]="!loopState.valid" type="submit">
+                Mark
+            </button>
+
+        </div>
+    </form>
+    <button (click)="unMarking()">
+        Unmark
+    </button>
+</div>

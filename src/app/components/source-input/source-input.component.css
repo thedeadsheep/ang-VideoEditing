@@ -1,0 +1,24 @@
+.wrap{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+}
+.dropzone{
+    width: 150px;
+    border: 1px dotted black;
+    position: relative;
+}
+.dropzone >input{
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+}
+.dropzone > div{
+    position: absolute;
+    z-index: -999;
+}
+.fileupload{
+    grid-column-end: span 2
+    
+}
