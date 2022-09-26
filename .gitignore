@@ -42,5 +42,5 @@ testem.log
 Thumbs.db
 
 # Assets
-/Assets/output.mp4
-/Assets/output2.mp4
+/src/assets/output.mp4
+/src/assets/output2.mp4
