@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms'
 @Component({
   selector: 'app-video',
@@ -7,6 +7,7 @@ import { FormBuilder, Validators } from '@angular/forms'
 })
 export class VideoComponent implements OnChanges {
   @Input() videoLoad: any
+  @Output() cutMark: any
   video: any
   volValue: any
   currentTime: any
