@@ -8,9 +8,10 @@
 
 # Node
 /node_modules
+
 npm-debug.log
 yarn-error.log
-
+/BE/node_modules
 # IDEs and editors
 .idea/
 .project
@@ -42,5 +43,4 @@ testem.log
 Thumbs.db
 
 # Assets
-/src/assets/output.mp4
-/src/assets/output2.mp4
+/src/assets

@@ -6,14 +6,16 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./source-input.component.css']
 })
 export class SourceInputComponent implements OnInit {
-  fileInput: any = null
+  fileInput: any = []
   constructor() { }
   @Output() videoFiles = new EventEmitter();
   ngOnInit(): void {
   }
   fileBrowseHandler(files: any) {
     const dropFiles = files.target.files
-    this.fileInput = dropFiles
+    for (let i = 0; i < dropFiles.length; i++)
+      this.fileInput.push(dropFiles[i])
+    console.log(dropFiles)
   }
   transVideo(video: any) {
     this.videoFiles.emit(video);

@@ -12,6 +12,7 @@ export class VideoComponent implements OnChanges {
   volValue: any
   currentTime: any
   timeDuration: any
+
   public loopState = this.fb.group({
     start: ['', [Validators.required, Validators.min(0)]],
     end: ['', [Validators.required]]
@@ -96,7 +97,6 @@ export class VideoComponent implements OnChanges {
     const end = (endLoop != null) ? endLoop : this.loopState.value.end
     console.log("start: ", start, "end: ", end)
     if (end < start) {
-      alert("Du ma may")
       return
     }
     this.video.currentTime = start

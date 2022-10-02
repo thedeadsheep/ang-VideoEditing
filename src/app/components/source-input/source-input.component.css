@@ -2,12 +2,18 @@
     display: flex;
     flex-direction: row;
     height: 100%;
-    width: 100%;
+    width: auto;
+    margin:10px;
 }
 .dropzone{
-    width: 150px;
+    width: 100px;
     border: 1px dotted black;
     position: relative;
+}
+.dropzone > div.imageholder{
+    font-size: 30px;
+    color: rgba(0,0,0, 0.5);
+    text-align: center;
 }
 .dropzone >input{
     opacity: 0;
@@ -19,6 +25,16 @@
     z-index: -999;
 }
 .fileupload{
-    grid-column-end: span 2
-    
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    height: 500px;
+    width: 100%;
+    overflow: scroll;
+    grid-template-rows:  span 2;
+}
+.fileupload button{
+    height: 120px;
+    width: 100px;
+    margin: 2px;
+    overflow: hidden;
 }
