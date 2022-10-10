@@ -9,11 +9,15 @@ export class GridAppComponent implements OnInit {
 
   constructor() { }
   videoFile: any
-  renderVideoData: any
+  renderVideoData: any = []
 
   ngOnInit(): void {
   }
   getVideo(video: any) {
     this.videoFile = video
+  }
+  getCutPointOfViedeo(cutPoint: any){
+    this.renderVideoData.push(cutPoint)
+    console.log(this.renderVideoData)
   }
 }

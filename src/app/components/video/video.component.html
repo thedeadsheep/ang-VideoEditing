@@ -25,19 +25,27 @@
         {{currentTime}}!<br>
         <input type="range" id="time-range" [value]="currentTime" (change)="seekTime()">
     </div>
-    <form [formGroup]="loopState" (ngSubmit)="markingLoop(null, null)">
+    <!--
+
+   
+    -->
+    <form [formGroup]="markingPoint" (ngSubmit)="markingLoop(null, null)">
         <div>
-            <input type="number" formControlName="start">s -->
-            <input type="number" formControlName="end">s
+            <input type="number" id="start-range" formControlName="start">s -->
+            <input type="number" id="end-range" formControlName="end">s
         </div>
         <div>
-            <button [disabled]="!loopState.valid" type="submit">
-                Mark
+            <button [disabled]="!markingPoint.valid" type="submit">
+                Set Loop Point
             </button>
-
+            <button  [disabled]="!markingPoint.valid" (click)="createMarkingCutPoint()">
+                Cut this Position
+            </button>
         </div>
     </form>
+   
     <button (click)="unMarking()">
-        Unmark
+        Unmarking Loop Point
     </button>
+  
 </div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, Output } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms'
 @Component({
   selector: 'app-video',
@@ -7,21 +7,19 @@ import { FormBuilder, Validators } from '@angular/forms'
 })
 export class VideoComponent implements OnChanges {
   @Input() videoLoad: any
-  @Output() cutMark: any
+  @Output() cutMark: any = new EventEmitter<object>() 
   video: any
   volValue: any
   currentTime: any
   timeDuration: any
 
-  public loopState = this.fb.group({
-    start: ['', [Validators.required, Validators.min(0)]],
-    end: ['', [Validators.required]]
+  public markingPoint = this.fb.group({
+    start: ['', [Validators.required, Validators.minLength(1)]],
+    end: ['', [Validators.required, Validators.minLength(1)]]
   })
   constructor(
     public fb: FormBuilder
-  ) {
-
-  }
+  ) {}
   ngOnChanges(changes: SimpleChanges): void {
     const vid = (<HTMLInputElement>document.getElementById("video-played"))
     this.video = vid
@@ -30,8 +28,8 @@ export class VideoComponent implements OnChanges {
     this.timeDuration = time
     this.currentTime = 0
     this.getPlayedTime();
-    this.loopState.value.start = '0';
-    this.loopState.value.end = this.video.duration
+    this.markingPoint.value.start = '0';
+    this.markingPoint.value.end = this.video.duration
     this.loadVideo()
   }
 
@@ -40,13 +38,9 @@ export class VideoComponent implements OnChanges {
     if (file) {
       this.video.src = URL.createObjectURL(file)
     }
-
-
   }
   playVideo() {
-
     this.video.play()
-
   }
   pauseVideo() {
     this.video.pause()
@@ -92,9 +86,10 @@ export class VideoComponent implements OnChanges {
   seekTime() {
     this.video.currentTime = this.timeDuration.value
   }
+  
   markingLoop(startLoop: any, endLoop: any) {
-    const start = (startLoop != null) ? startLoop : this.loopState.value.start
-    const end = (endLoop != null) ? endLoop : this.loopState.value.end
+    const start = (startLoop != null) ? startLoop : this.markingPoint.value.start
+    const end = (endLoop != null) ? endLoop : this.markingPoint.value.end
     console.log("start: ", start, "end: ", end)
     if (end < start) {
       return
@@ -108,5 +103,25 @@ export class VideoComponent implements OnChanges {
   }
   unMarking() {
     this.markingLoop(0, this.video.duration)
+  }
+  
+  
+  createMarkingCutPoint(){
+    var cutPoint = {
+      video: this.videoLoad,
+      start: this.markingPoint.value.start,
+      end: this.markingPoint.value.end,
+    }
+    this.cutMark.emit(cutPoint);
+    this.unForcus();
+  }
+  unForcus(){
+    var start = (<HTMLInputElement>document.getElementById("start-range"))
+    var end = (<HTMLInputElement>document.getElementById("end-range"))
+    start.value =  ""
+    end.value = ""
+    this.markingPoint.value.start = ""
+    this.markingPoint.value.end = ""
+
   }
 }

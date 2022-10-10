@@ -1,9 +1,9 @@
 <p>media-input works!</p>
-<div *ngFor="let data of sampleData">
+<div *ngFor="let data of arrayOfCutVideo">
     <button class="">
-        {{data.filename}}
+        {{data.video.name}}
     </button>
     <p>
-        {{data.cutPoint}} --> {{ data.duration}}
+        {{data.start}} --> {{ data.end}}
     </p>
 </div>
