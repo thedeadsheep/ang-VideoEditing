@@ -13,5 +13,7 @@ export class MediaInputComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
 
   }
+  addVideoToRenderArray(id: any){
 
+  }
 }
