@@ -31,8 +31,8 @@
     -->
     <form [formGroup]="markingPoint" (ngSubmit)="markingLoop(null, null)">
         <div>
-            <input type="number" id="start-range" formControlName="start">s -->
-            <input type="number" id="end-range" formControlName="end">s
+            <input type="number" id="start-point" formControlName="start">s -->
+            <input type="number" id="end-point" formControlName="end">s
         </div>
         <div>
             <button [disabled]="!markingPoint.valid" type="submit">
