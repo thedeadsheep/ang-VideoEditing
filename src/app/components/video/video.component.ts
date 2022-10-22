@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms'
+import { UUID } from 'angular2-uuid';
 @Component({
   selector: 'app-video',
   templateUrl: './video.component.html',
@@ -26,7 +27,6 @@ export class VideoComponent implements OnChanges {
 
     this.loadVideo()
 
-    console.log(this.video.duration)
     this.getPlayedTime();
 
 
@@ -129,12 +129,12 @@ export class VideoComponent implements OnChanges {
 
   createMarkingCutPoint() {
     var cutPoint = {
+      id: UUID.UUID(),
       video: this.videoLoad,
       start: this.markingPoint.value.start,
       end: this.markingPoint.value.end,
     }
     this.cutMark.emit(cutPoint);
-    this.unForcus();
   }
   unForcus() {
     var start = (<HTMLInputElement>document.getElementById("start-range"))

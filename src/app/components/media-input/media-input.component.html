@@ -1,8 +1,8 @@
 <p>media-input works!</p>
 <div class="grid-view">
     <div class="media-input">
-        
-        <div *ngFor="let data of arrayOfCutVideo" >
+
+        <div *ngFor="let data of arrayOfCutVideo">
             <button (click)="addVideoToRenderArray(data.id)">
                 <p>
                     {{data.video.name}}
@@ -16,13 +16,13 @@
     <div class="media-timeline">
         <div *ngFor="let cut of mergeData" (click)="removeCut(cut.id)">
             <button>
-               {{cut[0] | json}}
+                {{cut | json}}
 
-               <P>
-                
-               </P>
+                <P>
+
+                </P>
             </button>
-          
+
         </div>
 
     </div>
