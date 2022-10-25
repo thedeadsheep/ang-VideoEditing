@@ -6,7 +6,6 @@ const {
 
 module.exports = {
     upload: (req, res) => {
-
         var storage = multer.diskStorage({
             destination: function (req, file, cb) {
                 cb(null, "uploads");
