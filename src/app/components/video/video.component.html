@@ -1,34 +1,52 @@
-<p>video works!</p>
-<video controls id="video-played">
-    <source src="" type="video/mp4">
-    <source src="" type="video/ogg">
-    Your browser does not support the video tag.
-</video>
-<div>
-    <button (click)="playVideo()">
-        play
+<div class="video-wrap">
+    <video id="video-played">
+        <source src="" type="video/mp4">
+        <source src="" type="video/ogg">
+        Your browser does not support the video tag.
+    </video>
+</div>
+
+<div class="time-range">
+    {{currentTime}}
+    <span>
+        <input type="range" id="time-range" [value]="currentTime" (change)="seekTime()">
+    </span>
+
+</div>
+
+<div class="video-controller">
+    <button (click)="stopVideo()" class="control-btn">
+        Stop
     </button>
-    <button (click)="pauseVideo()">
+    <button (click)="playPause()" class="control-btn">
+        play/pause
+    </button>
+    <button (click)="pauseVideo()" class="control-btn">
         Pause
     </button>
-    \<button (click)="next5Sec()">
-        >>
-    </button>
-    <button (click)="prev5Sec()">
+    <button (click)="prev5Sec()" class="control-btn">
         prev
     </button>
-    <button (click)="muteVol()">
+    <button (click)="next5Sec()" class="control-btn">
+        next
+    </button>
+    <button (click)="muteVol()" class="control-btn">
         Mute
     </button>
-    <input type="range" id="volumm-range" min=1 max=100 (change)="changeVol()" id="slider-vol" [value]="volValue*100">
-    <div>
-        {{currentTime}}!<br>
-        <input type="range" id="time-range" [value]="currentTime" (change)="seekTime()">
+    <div class="volumm">
+        <input type="range" class="volumm-range" min=1 max=100 (change)="changeVol()" id="slider-vol"
+            [value]="volValue*100">
     </div>
+
+
     <!--
 
    
     -->
+
+
+</div>
+<div class="marking-function">
     <form [formGroup]="markingPoint" (ngSubmit)="markingLoop(null, null)">
         <div>
             <input type="number" id="start-point" formControlName="start">s -->
@@ -38,14 +56,13 @@
             <button [disabled]="!markingPoint.valid" type="submit">
                 Set Loop Point
             </button>
-            <button  [disabled]="!markingPoint.valid" (click)="createMarkingCutPoint()">
+            <button [disabled]="!markingPoint.valid" (click)="createMarkingCutPoint()">
                 Cut this Position
             </button>
         </div>
     </form>
-   
+
     <button (click)="unMarking()">
         Unmarking Loop Point
     </button>
-  
 </div>

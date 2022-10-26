@@ -67,6 +67,13 @@ export class VideoComponent implements OnChanges {
 
     }
   }
+  playPause() {
+    if (this.video.paused) {
+      this.playVideo()
+      return
+    }
+    this.pauseVideo()
+  }
   playVideo() {
     this.video.play()
   }
@@ -90,6 +97,10 @@ export class VideoComponent implements OnChanges {
       this.volValue = trueValue
       this.video.volume = trueValue
     }
+  }
+  stopVideo() {
+    this.video.pause()
+    this.video.currentTime = 0;
   }
   muteVol() {
     if (this.video.volume != 0) {
@@ -136,6 +147,7 @@ export class VideoComponent implements OnChanges {
     }
     this.cutMark.emit(cutPoint);
   }
+
   unForcus() {
     var start = (<HTMLInputElement>document.getElementById("start-range"))
     var end = (<HTMLInputElement>document.getElementById("end-range"))

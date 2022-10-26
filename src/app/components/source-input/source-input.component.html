@@ -1,19 +1,23 @@
 <div class="wrap">
-    <div class="dropzone">
-        <div class="imageholder">
 
+    <div class="dropzone">
+
+        <div class="imageholder">
             Drop your Video Here
         </div>
         <input type="file" multiple (change)="fileBrowseHandler($event)" class="file">
 
     </div>
-    <div class="fileupload">
-        <div *ngFor="let video of fileInput">
-
-            <button (click)="transVideo(video)">
-                {{video.name}}
+    <div class="fileuploaded">
+        <div *ngFor="let video of fileInput" class="video-input-item">
+            <button (click)="transVideo(video)" class="video-item">
+                <img src="../../../assets/video-placeholder.jpg" class="thumbnail-placeholder">
+                <div>
+                    {{video.name}}
+                </div>
 
             </button>
         </div>
     </div>
+
 </div>

@@ -1,35 +1,78 @@
 .wrap{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     height: 100%;
     width: auto;
-    margin:10px;
+    padding: 0;
+    margin: 0;
 }
 .dropzone{
-    width: auto;
-    border: 1px dotted black;
+    width: 100%;
     position: relative;
-    height: 100%;
+    height: 20%;
 }
-.dropzone > div.imageholder{
+.dropzone div.imageholder{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 30px;
+    border: 1px;
+    border-style: none none dashed none;
+    position: absolute;
     color: rgba(0,0,0, 0.5);
 }
-.dropzone >input{
+input.file{
     opacity: 0;
-    height: 40vh;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+.fileuploaded{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    height: auto;
+    width: 100%;
+    overflow-y: scroll;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+.video-input-item button.video-item{
+    height: auto;
+    width: 140px;
+    margin: 1vw;
+    overflow: hidden;
+
+}
+.video-input-item,
+button.video-item{
+    padding: 0
+}
+
+.video-input-item{
+    border-radius: 10px;
+}
+.thumbnail-placeholder{
     width: 100%;
 }
-.dropzone > div{
-    position: absolute;
-    z-index: -999;
+::-webkit-scrollbar {
+  width: 10px;
 }
-.fileupload{
-    
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
 }
-.fileupload button{
-    height: 120px;
-    width: 100px;
-    margin: 2px;
-    overflow: hidden;
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(255, 185, 185); 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(255, 118, 118); 
 }

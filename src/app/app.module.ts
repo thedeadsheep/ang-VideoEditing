@@ -8,6 +8,7 @@ import { VideoComponent } from './components/video/video.component';
 import { MediaInputComponent } from './components/media-input/media-input.component';
 import { SourceInputComponent } from './components/source-input/source-input.component';
 import { GridAppComponent } from './components/grid-app/grid-app.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { GridAppComponent } from './components/grid-app/grid-app.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

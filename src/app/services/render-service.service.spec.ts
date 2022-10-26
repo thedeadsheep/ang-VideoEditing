@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { InputSourceService } from './input-source.service';
+import { RenderServiceService } from './render-service.service';
 
-describe('InputSourceService', () => {
-  let service: InputSourceService;
+describe('RenderServiceService', () => {
+  let service: RenderServiceService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(InputSourceService);
+    service = TestBed.inject(RenderServiceService);
   });
 
   it('should be created', () => {

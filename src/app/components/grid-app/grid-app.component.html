@@ -5,18 +5,12 @@
         </app-source-input>
     </div>
     <div class="player">
-        <app-video 
-            [videoLoad]="videoFile"
-            (cutMark)="getCutPointOfViedeo($event)"
-        >
+        <app-video [videoLoad]="videoFile" (cutMark)="getCutPointOfViedeo($event)">
 
         </app-video>
     </div>
     <div class="media-input">
-        <app-media-input
-            [arrayOfCutVideo]="renderVideoData"
-
-        >
+        <app-media-input [arrayOfCutVideo]="renderVideoData">
 
         </app-media-input>
     </div>
