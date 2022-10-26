@@ -1,4 +1,4 @@
-const { upload } = require("./api/ffmpeg.controller")
+const { upload, trimVideo } = require("./api/ffmpeg.controller")
 
 const express = require('express')
 
@@ -20,10 +20,7 @@ app.use(cors())
 
 app.post('/file', upload)
 
-app.post('/multiplefiles', (req, res) => {
-
-
-})
+app.post('/trim', trimVideo)
 
 app.listen(3000, () => {
   console.log("App is listening on port 3000")
