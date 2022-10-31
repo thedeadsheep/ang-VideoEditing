@@ -9,7 +9,7 @@ export class SourceServiceService {
 
   constructor(private http: HttpClient) { }
   uploadSource(formdata: any) {
-    return this.http.post<any>(WEB_API + "", formdata);
+    return this.http.post<any>(WEB_API + "/multiple", formdata);
     //return name of file on server
   }
 }

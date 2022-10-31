@@ -17,8 +17,26 @@ export class SourceInputComponent implements OnInit {
       this.pushVideoTofileInputArray(dropFiles[i])
       ///push video to server here
     }
-
+    this.filteringUploadedVideoToServer(dropFiles)
     console.log(dropFiles)
+  }
+  filteringUploadedVideoToServer(videoFiles: any) {
+    var videoNotUploaded: any[] = [];
+    videoFiles.forEach((vFile: any) => {
+      if (vFile.uploaded == false)
+        videoNotUploaded.push(vFile)
+    });
+    this.uploadVideos(videoNotUploaded)
+  }
+  uploadVideos(multipleVideos: any[]) {
+    const formData = new FormData()
+    for (let item of multipleVideos) {
+      formData.append("video", item)
+    }
+    this.ss.uploadSource(formData).subscribe((res) => {
+      console.log(res)
+      multipleVideos = res // dữ liệu nhận cần thêm 2 thuộc tính về path và uploaded
+    })
   }
   pushVideoTofileInputArray(file: any) {
     var fileCheck = this.fileInput.find((fI: any) => { return file.name == fI.name })

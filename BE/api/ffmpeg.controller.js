@@ -3,6 +3,7 @@ const {
     trimVideo,
     mergeVideo
 } = require("./ffmpeg-function.service")
+const path = require('path')
 
 module.exports = {
     upload: (req, res) => {
