@@ -43,14 +43,22 @@ app.post('/multiple', (req, res) => {
     }
     console.log(req.files)
 
-    let img = []
+    let responseData = []
 
     req.files.forEach(file => {
-      img.push(file.filename)
+      var data = {
+        originalname: file.originalname,
+        serverFilename: file.filename,
+        serverPath: file.path,
+        type: file.minetype,
+        size: file.size,
+        uploaded: true
+      }
+      responseData.push(data)
     });
 
     res.json({
-      path: img
+      data: responseData
     })
 
   })

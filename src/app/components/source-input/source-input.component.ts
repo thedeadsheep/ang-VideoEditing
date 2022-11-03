@@ -17,25 +17,25 @@ export class SourceInputComponent implements OnInit {
       this.pushVideoTofileInputArray(dropFiles[i])
       ///push video to server here
     }
-    this.filteringUploadedVideoToServer(dropFiles)
-    console.log(dropFiles)
+    this.filteringUploadedVideoToServer(this.fileInput)
   }
-  filteringUploadedVideoToServer(videoFiles: any) {
+  filteringUploadedVideoToServer(videoFiles: any[]) {
     var videoNotUploaded: any[] = [];
-    videoFiles.forEach((vFile: any) => {
-      if (vFile.uploaded == false)
-        videoNotUploaded.push(vFile)
-    });
+
+    for (let i = 0; i < videoFiles.length; i++) {
+      if (videoFiles[i].uploaded == null)
+        videoNotUploaded.push(videoFiles[i])
+    };
     this.uploadVideos(videoNotUploaded)
   }
   uploadVideos(multipleVideos: any[]) {
     const formData = new FormData()
     for (let item of multipleVideos) {
-      formData.append("video", item)
+      formData.append("files", item)
     }
     this.ss.uploadSource(formData).subscribe((res) => {
       console.log(res)
-      multipleVideos = res // dữ liệu nhận cần thêm 2 thuộc tính về path và uploaded
+      this.fileInput = res.data // dữ liệu nhận cần thêm 2 thuộc tính về path và uploaded
     })
   }
   pushVideoTofileInputArray(file: any) {
@@ -50,7 +50,10 @@ export class SourceInputComponent implements OnInit {
         return
       }
       this.fileInput.push(file)
-    } else this.fileInput.push(file)
+    } else {
+      this.fileInput.push(file)
+
+    }
   }
   transVideo(video: any) {
     this.videoFiles.emit(video);
