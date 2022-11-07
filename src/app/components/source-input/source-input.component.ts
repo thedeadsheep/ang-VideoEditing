@@ -35,7 +35,8 @@ export class SourceInputComponent implements OnInit {
     }
     this.ss.uploadSource(formData).subscribe((res) => {
       console.log(res)
-      this.fileInput = res.data // dữ liệu nhận cần thêm 2 thuộc tính về path và uploaded
+      this.fileInput.serverRes = res.data // dữ liệu nhận cần thêm 2 thuộc tính về path và uploaded
+      console.log(this.fileInput)
     })
   }
   pushVideoTofileInputArray(file: any) {
