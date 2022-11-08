@@ -1,5 +1,5 @@
-const { upload, trimVideo, multiUpload } = require("./api/ffmpeg.controller")
-
+const { trimVideo } = require("./api/ffmpeg.controller")
+const { createSessionId } = require("./api/server.service")
 const express = require('express')
 
 
@@ -15,22 +15,20 @@ const app = express()
 
 app.use(express.static(path.join(__dirname + "/uploads")))
 
-
-
 app.use(bodyparser.urlencoded({ extended: false }))
 app.use(bodyparser.json())
 
 app.use(cors())
 
-app.post('/file', upload)
-
 app.post('/trim', trimVideo)
 
 app.post('/multiple', (req, res) => {
+  var sessionId = createSessionId()
 
+  console.log(sessionId)
   var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, "uploads/bac");
+      cb(null, `uploads/${sessionId}`);
     },
     filename: function (req, file, cb) {
       cb(null, Date.now() + path.extname(file.originalname)); //Appending extension
@@ -52,7 +50,7 @@ app.post('/multiple', (req, res) => {
         serverPath: file.path,
         type: file.minetype,
         size: file.size,
-        uploaded: true
+        sessionId: sessionId
       }
       responseData.push(data)
     });
