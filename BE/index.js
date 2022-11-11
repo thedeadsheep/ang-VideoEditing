@@ -15,18 +15,19 @@ const app = express()
 
 app.use(express.static(path.join(__dirname + "/uploads")))
 
-app.use(bodyparser.urlencoded({ extended: false }))
+app.use(bodyparser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
 
 app.use(cors())
 
 app.post('/trim', trimVideo)
 
-app.post('/multiple', (req, res) => {
-  var sessionId = createSessionId()
-
-  console.log(sessionId)
-  var storage = multer.diskStorage({
+app.post('/multiple/:sId', async (req, res) => {
+  let sessionId = req.params.sId
+  if (sessionId == "noneSID") {
+    sessionId = await createSessionId()
+  }
+  var storage = await multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, `uploads/${sessionId}`);
     },
@@ -34,15 +35,14 @@ app.post('/multiple', (req, res) => {
       cb(null, Date.now() + path.extname(file.originalname)); //Appending extension
     },
   });
-  var multipleUpload = multer({ storage: storage }).array('files')
-  multipleUpload(req, res, (err) => {
+
+  let multipleUpload = await multer({ storage: storage }).array('files')
+  await multipleUpload(req, res, (err) => {
     if (err) {
-      console.log(err)
+      console.log("error from multer", err)
     }
+    let serverResponse = []
     console.log(req.files)
-
-    let responseData = []
-
     req.files.forEach(file => {
       var data = {
         originalname: file.originalname,
@@ -52,13 +52,15 @@ app.post('/multiple', (req, res) => {
         size: file.size,
         sessionId: sessionId
       }
-      responseData.push(data)
+      serverResponse.push(data)
     });
-
+    var data = {
+      sessionId: sessionId,
+      serverResponse: serverResponse,
+    }
     res.json({
-      data: responseData
+      data: data
     })
-
   })
 })
 

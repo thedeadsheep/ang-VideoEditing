@@ -21,7 +21,6 @@ export class SourceInputComponent implements OnInit {
   }
   filteringUploadedVideoToServer(videoFiles: any[]) {
     var videoNotUploaded: any[] = [];
-
     for (let i = 0; i < videoFiles.length; i++) {
       if (videoFiles[i].uploaded == null)
         videoNotUploaded.push(videoFiles[i])
@@ -33,12 +32,15 @@ export class SourceInputComponent implements OnInit {
     for (let item of multipleVideos) {
       formData.append("files", item)
     }
-    this.ss.uploadSource(formData).subscribe((res) => {
-      console.log(res)
-      this.fileInput.serverRes = res.data // dữ liệu nhận cần thêm 2 thuộc tính về path và uploaded
-      console.log(this.fileInput)
+    var sid = localStorage.getItem("sessionID") || "null"
+    this.ss.uploadSource(formData, sid).subscribe((res) => {
+      this.fileInput.serverRes = res.data
+      console.log(res.data)
+      localStorage.setItem("sessionID", res.data.sessionId)
+      // dữ liệu nhận cần thêm 2 thuộc tính về path và uploaded
     })
   }
+
   pushVideoTofileInputArray(file: any) {
     var fileCheck = this.fileInput.find((fI: any) => { return file.name == fI.name })
     if (fileCheck) {
