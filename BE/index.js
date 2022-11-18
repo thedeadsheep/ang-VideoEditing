@@ -1,4 +1,4 @@
-const { trimVideo } = require("./api/ffmpeg.controller")
+const { trimVideo, renderVideo } = require("./api/ffmpeg.controller")
 const { createSessionId } = require("./api/server.service")
 const express = require('express')
 
@@ -21,6 +21,8 @@ app.use(bodyparser.json())
 app.use(cors())
 
 app.post('/trim', trimVideo)
+
+app.post('/renderVideo', renderVideo);
 
 app.post('/multiple/:sId', async (req, res) => {
   let sessionId = req.params.sId

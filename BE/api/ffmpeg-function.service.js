@@ -1,10 +1,11 @@
 const { exec } = require("child_process")
 module.exports = {
-    trimVideo: (file, callBack) => {
-        var fileInputName = "1.mp4"//file.uploadFileName
-        var fileOutputName = "Output-" + fileInputName
-        var startPoint = "2"//file.start
-        var endPoint = "10"//file.end
+    trimVideo: (file, sId, callBack) => {
+        console.log(" inside service", file, sId)
+        var fileInputName = "uploads\\" + sId + "\\" + file.fileName
+        var fileOutputName = "uploads\\" + sId + "\\trim-" + file.fileName
+        var startPoint = file.start
+        var endPoint = file.end
         exec(`ffmpeg -y -ss ${startPoint} -to ${endPoint} -i ${fileInputName} -c copy ${fileOutputName}`, (err, stdout, stderr) => {
             if (err) {
                 console.log("err", err)

@@ -52,6 +52,9 @@ export class MediaInputComponent implements OnChanges {
     this.mergeData.push(obj)
     console.log(this.mergeData)
   }
+  sendRequest() {
+
+  }
   removeCut(id: any) {
     let index = this.mergeData.findIndex((v: any) => v.id === id)
     this.mergeData.splice(index, 1)

@@ -2,7 +2,7 @@ const { default: ShortUniqueId } = require("short-unique-id")
 const { exec } = require("child_process")
 module.exports = {
     createSessionId: async () => {
-        const uid = new ShortUniqueId({ length: 10 })
+        const uid = await new ShortUniqueId({ length: 10 })
         var sessionId = uid()
         await exec(`mkdir uploads\\${sessionId}`, (err, stdout, stderr) => {
             if (err) {
@@ -13,8 +13,6 @@ module.exports = {
         })
         return sessionId
     },
-    normalizeData: (dataInput) => {
-        var dataOutput
-    }
+
 
 }
