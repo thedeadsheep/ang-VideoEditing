@@ -28,8 +28,52 @@ export class VideoComponent implements OnChanges {
     this.loadVideo()
 
     this.getPlayedTime();
+    this.cutSlider()
 
+  }
 
+  cutSlider() {
+    var lowerSlider = <HTMLInputElement>document.getElementById('fromSlider')
+    var upperSlider = <HTMLInputElement>document.getElementById('toSlider')
+
+    var lowerInput = <HTMLInputElement>document.getElementById('fromInput')
+    var upperInput = <HTMLInputElement>document.getElementById('toInput')
+
+    var lowerVal = 0
+    lowerSlider.value = lowerVal.toString()
+    var upperVal = this.video.duration
+    upperSlider.value = upperVal.toString()
+
+    lowerInput.value = lowerVal.toString()
+    upperInput.value = upperVal.toString()
+    upperSlider.oninput = () => {
+      lowerVal = parseInt(lowerSlider.value);
+      upperVal = parseInt(upperSlider.value);
+      lowerInput.value = ((this.video.duration * lowerVal) / 100).toString()
+      upperInput.value = ((this.video.duration * upperVal) / 100).toString()
+      if (upperVal < lowerVal + 2) {
+        lowerSlider.value = (upperVal - 2).toString();
+        console.log(lowerVal, upperVal)
+        if (lowerVal == parseInt(lowerSlider.min)) {
+          upperSlider.value = "1";
+        }
+      }
+    }
+    lowerSlider.oninput = () => {
+      lowerVal = parseInt(lowerSlider.value);
+      upperVal = parseInt(upperSlider.value);
+      lowerInput.value = ((this.video.duration * lowerVal) / 100).toString()
+      upperInput.value = ((this.video.duration * upperVal) / 100).toString()
+      console.log(lowerVal, upperVal)
+      if (lowerVal > upperVal - 2) {
+        upperSlider.value = (lowerVal + 2).toString();
+
+        if (upperVal == parseInt(upperSlider.max)) {
+          lowerSlider.value = (parseInt(upperSlider.max) - 2).toString();
+        }
+
+      }
+    };
   }
   getPlayedTime() {
     this.video.ontimeupdate = () => {

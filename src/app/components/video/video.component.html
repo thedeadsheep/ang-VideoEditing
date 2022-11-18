@@ -5,14 +5,31 @@
         Your browser does not support the video tag.
     </video>
 </div>
+<div class="time-wrapper">
+    <div class="time-range">
+        {{currentTime}}
+        <span>
+            <input type="range" id="time-range" [value]="currentTime" (change)="seekTime()">
+        </span>
 
-<div class="time-range">
-    {{currentTime}}
-    <span>
-        <input type="range" id="time-range" [value]="currentTime" (change)="seekTime()">
-    </span>
+    </div>
+    <div class="cut-slider-wrapper">
+        <span>
+            <input class="inputTime" value="1" id="fromInput">
+        </span>
+        <div class="range_container">
+            <div class="sliders_control">
+                <input id="fromSlider" type="range" value="10" min="0" max="100" />
+                <input id="toSlider" type="range" value="40" min="0" max="100" />
+            </div>
 
+        </div>
+        <span>
+            <input class="inputTime" value="1" id="toInput">
+        </span>
+    </div>
 </div>
+
 
 <div class="video-controller">
     <button (click)="stopVideo()" class="control-btn">
