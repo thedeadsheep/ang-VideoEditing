@@ -109,6 +109,9 @@ video{
 
 
 .cut-slider-wrapper{
+    display: none;
+}
+.double-slider{
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -177,4 +180,8 @@ video{
 #fromSlider {
   height: 0;
   z-index: 1;
+}
+
+.time-wrapper{
+    height: 75px;
 }

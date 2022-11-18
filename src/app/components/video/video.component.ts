@@ -13,7 +13,7 @@ export class VideoComponent implements OnChanges {
   volValue: any
   currentTime: any
   timeDuration: any
-
+  bTS: boolean = false
   public markingPoint = this.fb.group({
     start: ['', [Validators.required, Validators.minLength(1)]],
     end: ['', [Validators.required, Validators.minLength(1)]]
@@ -31,7 +31,20 @@ export class VideoComponent implements OnChanges {
     this.cutSlider()
 
   }
-
+  changeTimeSeek() {
+    var doubleSlider = <HTMLDivElement>document.getElementById("cut-slider-wrapper")
+    var timeSk = <HTMLDivElement>document.getElementById("time-seek")
+    console.log(doubleSlider, timeSk)
+    if (!this.bTS) {
+      doubleSlider.style.display = "block"
+      timeSk.style.display = "none"
+      this.bTS = !this.bTS
+    } else {
+      doubleSlider.style.display = "none"
+      timeSk.style.display = "grid"
+      this.bTS = !this.bTS
+    }
+  }
   cutSlider() {
     var lowerSlider = <HTMLInputElement>document.getElementById('fromSlider')
     var upperSlider = <HTMLInputElement>document.getElementById('toSlider')
@@ -199,6 +212,34 @@ export class VideoComponent implements OnChanges {
     end.value = ""
     this.markingPoint.value.start = ""
     this.markingPoint.value.end = ""
+
+  }
+  cutThis() {
+    const startPoint = <HTMLInputElement>document.getElementById("fromInput")
+    const endPoint = <HTMLInputElement>document.getElementById("toInput")
+    var cutPoint = {
+      id: UUID.UUID(),
+      video: this.videoLoad,
+      start: startPoint.value,
+      end: endPoint.value,
+    }
+    this.cutMark.emit(cutPoint);
+  }
+  loopThis() {
+    const startPoint = <HTMLInputElement>document.getElementById("fromInput")
+    const endPoint = <HTMLInputElement>document.getElementById("toInput")
+    const start = parseFloat(startPoint.value)
+    const end = parseFloat(endPoint.value)
+
+    if (end < start) {
+      return
+    }
+    this.video.currentTime = start
+    this.video.ontimeupdate = () => {
+      if (this.video.currentTime > end) {
+        this.video.currentTime = start
+      }
+    }
 
   }
 }

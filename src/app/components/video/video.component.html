@@ -6,28 +6,40 @@
     </video>
 </div>
 <div class="time-wrapper">
-    <div class="time-range">
+    <div class="time-range" id="time-seek">
         {{currentTime}}
         <span>
             <input type="range" id="time-range" [value]="currentTime" (change)="seekTime()">
         </span>
 
     </div>
-    <div class="cut-slider-wrapper">
-        <span>
-            <input class="inputTime" value="1" id="fromInput">
-        </span>
-        <div class="range_container">
-            <div class="sliders_control">
-                <input id="fromSlider" type="range" value="10" min="0" max="100" />
-                <input id="toSlider" type="range" value="40" min="0" max="100" />
-            </div>
+    <div class="cut-slider-wrapper" id="cut-slider-wrapper">
+        <div class="double-slider">
+            <span>
+                <input class="inputTime" value="1" id="fromInput">
+            </span>
+            <div class="range_container">
+                <div class="sliders_control">
+                    <input id="fromSlider" type="range" value="10" min="0" max="100" />
+                    <input id="toSlider" type="range" value="40" min="0" max="100" />
+                </div>
 
+            </div>
+            <span>
+                <input class="inputTime" value="1" id="toInput">
+            </span>
         </div>
-        <span>
-            <input class="inputTime" value="1" id="toInput">
-        </span>
+        <div class="">
+            <button (click)="cutThis()">
+                cut this Position
+            </button>
+            <button (click)="loopThis()">
+                loop this Position
+            </button>
+        </div>
+
     </div>
+
 </div>
 
 
@@ -46,6 +58,9 @@
     </button>
     <button (click)="next5Sec()" class="control-btn">
         next
+    </button>
+    <button (click)="changeTimeSeek()">
+        openCut
     </button>
     <button (click)="muteVol()" class="control-btn">
         Mute
