@@ -1,18 +1,23 @@
 const { default: ShortUniqueId } = require("short-unique-id")
-const { exec } = require("child_process")
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 module.exports = {
     createSessionId: async () => {
-        const uid = await new ShortUniqueId({ length: 10 })
+        const uid = new ShortUniqueId({ length: 10 })
         var sessionId = uid()
-        await exec(`mkdir uploads\\${sessionId}`, (err, stdout, stderr) => {
-            if (err) {
-                console.log(err);
-                return err
+        console.log(sessionId, "7")
+        async function createFolder() {
+            try {
+                const { stdout, stderr } = await exec(`mkdir uploads\\${sessionId}`);
+                console.log('stdout:', stdout);
+                console.log('stderr:', stderr);
+
+            } catch (e) {
+                console.error(e); // should contain code (exit code) and signal (that caused the termination).
             }
-            console.log(`created folder ${sessionId}`)
-        })
+        }
+        await createFolder()
         return sessionId
     },
-
 
 }

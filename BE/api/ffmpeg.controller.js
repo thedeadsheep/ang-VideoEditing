@@ -1,6 +1,6 @@
 
 const {
-    trimVideo,
+    trimVideo, trim, merge
 } = require("./ffmpeg-function.service")
 const path = require('path')
 
@@ -20,19 +20,31 @@ module.exports = {
             })
         })*/
     },
-    renderVideo: (req, res) => {
+    renderVideo: async (req, res) => {
         var renderReq = req.body
         var sId = renderReq.sessionID
         var files = renderReq.videoProcess
         var cutTimes = files.length
+        var trimedVideo = []
         for (var i = 0; i < cutTimes; i++) {
-            trimVideo(files[i], sId, (err, result) => {
-                if (err) {
-                    console.log("err trim video")
-                }
-                console.log(result)
-
+            var trimOutName = await trim(files[i], sId)
+            trimedVideo.push({
+                originName: files[i].fileName,
+                editedName: trimOutName
             })
         }
+        console.log(trimedVideo)
+        var finalFile;
+        var respoMergeFile = await merge(trimedVideo[0], trimedVideo[1], sId)
+        finalFile = respoMergeFile;
+        for (var i = 2; i < cutTimes; i++) {
+
+            respoMergeFile = await merge(finalFile, trimedVideo[i], sId)
+            finalFile = respoMergeFile
+        }
+        console.log("out of merge")
+        sendFile = "uploads\\" + sId + "\\" + finalFile.editedName
+        res.download(sendFile, "renderedFile.mp4")
     }
+
 }

@@ -59,7 +59,7 @@
     <button (click)="next5Sec()" class="control-btn">
         next
     </button>
-    <button (click)="changeTimeSeek()">
+    <button (click)="changeTimeSeek()" class="control-btn">
         openCut
     </button>
     <button (click)="muteVol()" class="control-btn">
@@ -72,16 +72,10 @@
 
 
     <!--
-
-   
-    -->
-
-
-</div>
 <div class="marking-function">
     <form [formGroup]="markingPoint" (ngSubmit)="markingLoop(null, null)">
         <div>
-            <input type="number" id="start-point" formControlName="start">s -->
+            <input type="number" id="start-point" formControlName="start">s 
             <input type="number" id="end-point" formControlName="end">s
         </div>
         <div>
@@ -97,4 +91,9 @@
     <button (click)="unMarking()">
         Unmarking Loop Point
     </button>
+</div>
+   
+    -->
+
+
 </div>

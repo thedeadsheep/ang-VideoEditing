@@ -53,7 +53,22 @@ export class MediaInputComponent implements OnChanges {
     console.log(this.mergeData)
   }
   sendRequest() {
+    var requestData: any = {
+      sessionID: localStorage.getItem("sessionID"),
+      videoProcess: []
+    }
 
+    var length = this.mergeData.length
+    let data
+    for (var i = 0; i < length; i++) {
+      data = {
+        fileName: this.mergeData[i].video.name,
+        start: parseInt(this.mergeData[i].start),
+        end: parseInt(this.mergeData[i].end),
+      }
+      requestData.videoProcess.push(data)
+    }
+    console.log(requestData)
   }
   removeCut(id: any) {
     let index = this.mergeData.findIndex((v: any) => v.id === id)

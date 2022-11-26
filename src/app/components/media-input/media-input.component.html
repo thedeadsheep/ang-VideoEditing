@@ -1,8 +1,7 @@
-<p>media-input works!</p>
 <div class="grid-view">
     <div class="media-input">
 
-        <div *ngFor="let data of arrayOfCutVideo">
+        <div *ngFor="let data of arrayOfCutVideo" class="cut-point">
             <button (click)="addVideoToRenderArray(data.id)">
                 <p>
                     {{data.video.name}}

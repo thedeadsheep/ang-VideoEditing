@@ -1,5 +1,5 @@
 const { trimVideo, renderVideo } = require("./api/ffmpeg.controller")
-const { createSessionId } = require("./api/server.service")
+const { createSessionId, } = require("./api/server.service")
 const express = require('express')
 
 
@@ -29,17 +29,17 @@ app.post('/multiple/:sId', async (req, res) => {
   if (sessionId == "noneSID") {
     sessionId = await createSessionId()
   }
-  var storage = await multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, `uploads/${sessionId}`);
+  const storage = multer.diskStorage({
+    destination: function (_req, _file, cb) {
+      cb(null, `uploads/${sessionId}`)
     },
-    filename: function (req, file, cb) {
-      cb(null, Date.now() + path.extname(file.originalname)); //Appending extension
+    filename: function (_req, file, cb) {
+      cb(null, Date.now() + path.extname(file.originalname)) //Appending extension
     },
   });
 
-  let multipleUpload = await multer({ storage: storage }).array('files')
-  await multipleUpload(req, res, (err) => {
+  const multipleUpload = multer({ storage: storage }).array('files')
+  multipleUpload(req, res, (err) => {
     if (err) {
       console.log("error from multer", err)
     }
@@ -55,7 +55,7 @@ app.post('/multiple/:sId', async (req, res) => {
         sessionId: sessionId
       }
       serverResponse.push(data)
-    });
+    })
     var data = {
       sessionId: sessionId,
       serverResponse: serverResponse,
