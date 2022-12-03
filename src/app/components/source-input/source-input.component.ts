@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SourceServiceService } from '../../services/source-service.service'
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-source-input',
   templateUrl: './source-input.component.html',
@@ -7,39 +8,31 @@ import { SourceServiceService } from '../../services/source-service.service'
 })
 export class SourceInputComponent implements OnInit {
   fileInput: any = []
-  constructor(private ss: SourceServiceService) { }
+  firstUpload: boolean = true
+  constructor(
+    private ss: SourceServiceService,
+    private sanitizer: DomSanitizer) { }
   @Output() videoFiles = new EventEmitter();
   ngOnInit(): void {
+
+  }
+  sanitize(url: string) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
   fileBrowseHandler(files: any) {
     const dropFiles = files.target.files
+
     for (let i = 0; i < dropFiles.length; i++) {
       this.pushVideoTofileInputArray(dropFiles[i])
-      ///push video to server here
     }
-    this.filteringUploadedVideoToServer(this.fileInput)
+
+    this.uploadVideos(this.fileInput)
+    this.fileInput.forEach((video: any) => {
+      video.blobURL = URL.createObjectURL(video)
+      console.log(video.blobURL)
+    });
   }
-  filteringUploadedVideoToServer(videoFiles: any[]) {
-    var videoNotUploaded: any[] = [];
-    for (let i = 0; i < videoFiles.length; i++) {
-      if (videoFiles[i].uploaded == null)
-        videoNotUploaded.push(videoFiles[i])
-    };
-    this.uploadVideos(videoNotUploaded)
-  }
-  uploadVideos(multipleVideos: any[]) {
-    const formData = new FormData()
-    for (let item of multipleVideos) {
-      formData.append("files", item)
-    }
-    var sid = localStorage.getItem("sessionID") || "null"
-    this.ss.uploadSource(formData, sid).subscribe((res) => {
-      this.fileInput.serverRes = res.data
-      console.log(res.data)
-      localStorage.setItem("sessionID", res.data.sessionId)
-      // dữ liệu nhận cần thêm 2 thuộc tính về path và uploaded
-    })
-  }
+
 
   pushVideoTofileInputArray(file: any) {
     var fileCheck = this.fileInput.find((fI: any) => { return file.name == fI.name })
@@ -58,7 +51,38 @@ export class SourceInputComponent implements OnInit {
 
     }
   }
+
+  uploadVideos(multipleVideos: any[]) {
+    console.log("MV: ", multipleVideos)
+    const formData = new FormData()
+    for (let item of multipleVideos) {
+      if (item.uploaded != true)
+        formData.append("files", item)
+    }
+    var sid = localStorage.getItem("sessionID") || "null"
+    this.ss.uploadSource(formData, sid).subscribe((res) => {
+      console.log(res.data.serverResponse)
+      this.dataNormalizer(res.data.serverResponse)
+      localStorage.setItem("sessionID", res.data.sessionId)
+      // dữ liệu nhận cần thêm 2 thuộc tính về path và uploaded
+    })
+  }
+
+  //-----------chuẩn hóa dữ liệu, liên kết thông tin giữa server -client----
+  dataNormalizer(sRes: any) {
+    for (var i = 0; i < sRes.length; i++) {
+      var index = this.fileInput.findIndex((fi: any) => { return sRes[i].originalname == fi.name })
+      if (this.fileInput[index].size == sRes[i].size) {
+        this.fileInput[index].uploaded = true
+        this.fileInput[index].serverName = sRes[i].serverFilename
+        this.fileInput[index].serverPath = sRes[i].serverPath
+      }
+    }
+
+  }
+  //------------------- push video to another component-----------------------------
   transVideo(video: any) {
     this.videoFiles.emit(video);
   }
 }
+

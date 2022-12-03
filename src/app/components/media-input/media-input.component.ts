@@ -1,5 +1,7 @@
 import { Component, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { UUID } from 'angular2-uuid';
+import { DomSanitizer } from '@angular/platform-browser';
+import { RenderServiceService } from 'src/app/services/render-service.service';
 @Component({
   selector: 'app-media-input',
   templateUrl: './media-input.component.html',
@@ -7,37 +9,16 @@ import { UUID } from 'angular2-uuid';
 })
 export class MediaInputComponent implements OnChanges {
 
-  constructor() { }
+  constructor(
+    private sanitizer: DomSanitizer,
+    private renderService: RenderServiceService) { }
   @Input() arrayOfCutVideo: any = {}
-  sampleData: any = [
-    {
-      id: UUID.UUID(),
-      video: {
-        name: 'video02.mp4'
-      },
-      start: 2,
-      end: 2
-    },
-    {
-      id: UUID.UUID(),
-      video: {
-        name: 'video01.mp4'
-      },
-      start: 2,
-      end: 2
-    },
-    {
-      id: UUID.UUID(),
-      video: {
-        name: 'video03.mp4'
-      },
-      start: 2,
-      end: 2
-    }
-  ]
-
   mergeData: any = []
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.arrayOfCutVideo)
+  }
+  sanitize(url: string) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
   addVideoToRenderArray(id: any) {
     console.log("arry", this.arrayOfCutVideo)
@@ -52,6 +33,11 @@ export class MediaInputComponent implements OnChanges {
     this.mergeData.push(obj)
     console.log(this.mergeData)
   }
+
+  removeCut(id: any) {
+    let index = this.mergeData.findIndex((v: any) => v.id === id)
+    this.mergeData.splice(index, 1)
+  }
   sendRequest() {
     var requestData: any = {
       sessionID: localStorage.getItem("sessionID"),
@@ -62,16 +48,15 @@ export class MediaInputComponent implements OnChanges {
     let data
     for (var i = 0; i < length; i++) {
       data = {
-        fileName: this.mergeData[i].video.name,
+        fileName: this.mergeData[i].video.serverName,
         start: parseInt(this.mergeData[i].start),
         end: parseInt(this.mergeData[i].end),
       }
       requestData.videoProcess.push(data)
     }
     console.log(requestData)
-  }
-  removeCut(id: any) {
-    let index = this.mergeData.findIndex((v: any) => v.id === id)
-    this.mergeData.splice(index, 1)
+    this.renderService.renderRequest(requestData).subscribe((res) => {
+      console.log(res)
+    })
   }
 }

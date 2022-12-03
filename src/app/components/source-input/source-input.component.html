@@ -11,11 +11,12 @@
     <div class="fileuploaded">
         <div *ngFor="let video of fileInput" class="video-input-item">
             <button (click)="transVideo(video)" class="video-item">
-                <img src="../../../assets/video-placeholder.jpg" class="thumbnail-placeholder">
+                <video height="50px">
+                    <source [src]="sanitize(video.blobURL)">
+                </video>
                 <div>
                     {{video.name}}
                 </div>
-
             </button>
         </div>
     </div>

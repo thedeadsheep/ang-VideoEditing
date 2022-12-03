@@ -9,14 +9,13 @@ import { MediaInputComponent } from './components/media-input/media-input.compon
 import { SourceInputComponent } from './components/source-input/source-input.component';
 import { GridAppComponent } from './components/grid-app/grid-app.component';
 import { HttpClientModule } from '@angular/common/http';
-
 @NgModule({
   declarations: [
     AppComponent,
     VideoComponent,
     MediaInputComponent,
     SourceInputComponent,
-    GridAppComponent
+    GridAppComponent,
   ],
   imports: [
     BrowserModule,

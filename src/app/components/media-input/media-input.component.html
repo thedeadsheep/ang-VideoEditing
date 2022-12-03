@@ -3,6 +3,9 @@
 
         <div *ngFor="let data of arrayOfCutVideo" class="cut-point">
             <button (click)="addVideoToRenderArray(data.id)">
+                <video height="50px">
+                    <source [src]="sanitize(data.video.blobURL)">
+                </video>
                 <p>
                     {{data.video.name}}
                 </p>
@@ -16,10 +19,6 @@
         <div *ngFor="let cut of mergeData" (click)="removeCut(cut.id)">
             <button>
                 {{cut | json}}
-
-                <P>
-
-                </P>
             </button>
 
         </div>
