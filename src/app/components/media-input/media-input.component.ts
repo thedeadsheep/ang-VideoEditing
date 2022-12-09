@@ -2,6 +2,7 @@ import { Component, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { UUID } from 'angular2-uuid';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RenderServiceService } from 'src/app/services/render-service.service';
+import { saveAs } from 'file-saver'
 @Component({
   selector: 'app-media-input',
   templateUrl: './media-input.component.html',
@@ -109,8 +110,16 @@ export class MediaInputComponent implements OnChanges {
       requestData.videoProcess.push(data)
     }
     console.log(requestData)
-    this.renderService.renderRequest(requestData).subscribe((res: any) => {
-      let downloadURL = URL.createObjectURL(res);
+    this.renderService.renderRequest(requestData).subscribe((data: Blob | MediaSource) => {
+      let downloadURL = window.URL.createObjectURL(data)
+      saveAs(downloadURL)
+    })
+  }
+  downloadFile(file: any) {
+    this.renderService.downloadFile(file).subscribe((data: Blob | MediaSource) => {
+      let downloadURL = window.URL.createObjectURL(data)
+
+      saveAs(downloadURL)
     })
   }
 }

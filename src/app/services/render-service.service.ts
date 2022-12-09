@@ -10,9 +10,16 @@ export class RenderServiceService {
   constructor(private http: HttpClient) { }
 
   renderRequest(renderData: any) {
-    return this.http.post(WEB_API + "renderVideo", renderData);
+    return this.http.post(WEB_API + "renderVideo", renderData, {
+      responseType: 'blob'
+    });
     //if done server return link to download or watch video rendered
     //or not server will sent error
+  }
+  downloadFile(fileDownload: any) {
+    return this.http.post(WEB_API + "download", fileDownload, {
+      responseType: 'blob'
+    })
   }
 
 }
