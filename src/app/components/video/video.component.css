@@ -1,8 +1,13 @@
+div.grid{
+  display: grid;
+  grid-template-rows: 7fr 2fr 1fr;
+  height: 100%;
+  width: 100%;
+}
 div.time-range{
     padding:10px;
     display: grid;
     grid-template-columns: 1fr 9fr;
-    transition: opacity 1s ease-out;
 }
 #time-range{
     width: 100%;
@@ -22,8 +27,8 @@ div.time-range{
     appearance: none;
     width: 20px;
     height: 20px;
-    background: #04AA6D;
-    border: 2px solid rebeccapurple;
+    background: #ffffff;
+    border: 3px solid rgb(61, 61, 61);
     cursor: pointer;
     border-radius: 50%;
 }
@@ -33,7 +38,17 @@ div.time-range{
     background: #04AA6D;
     cursor: pointer;
 }
-
+span.current-time{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  border-radius: 20px;
+  margin-right: 10px;
+  color: white;
+  padding: 3px;
+  box-shadow: 0 0 5px #4e4e4e,0 0 10px #ffffff,0 0 20px #000000;
+}
 .volumm-range{
     -webkit-appearance: none;
   height: 10px;
@@ -51,20 +66,18 @@ div.time-range{
     appearance: none;
     width: 20px;
     height: 20px;
-    background: #ff0000;
+    background: #303030;
     cursor: pointer;
 }
 .volumm-range::-moz-range-thumb{
     width: 20px;
     height: 20px;
-    background: #ff0000;
+    background: #2b2b2b;
     cursor: pointer;
 }
-
-
 .volumm-range::-webkit-slider-thumb {
     -webkit-appearance: none;
-    box-shadow: -2000px 0 0 2000px rgb(255, 158, 158); /* 2 */
+    box-shadow: -2000px 0 0 2000px rgb(150, 150, 150); 
 
 }
 div.volumm{
@@ -81,14 +94,41 @@ div.volumm{
 video{
     height: 400px;
 }
+#video-played{
+  width: 100%;
+  max-height: 390px;
+  margin-bottom: 5px;
+  border-bottom: 1px dotted gray;
+  
+}
 .video-controller{
     display: flex;
     justify-content: center;
     background-color: black;
+  border-top: 1px dotted gray;
 }
-.marking-function{
-    display: flex;
-    justify-content: center;
+.function-wrap{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.function-wrap button{
+  margin: 0 10px;
+  width: 100%;
+  font-size: 15px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  text-shadow: 0 0 10px black, 0 0 15px white, 0 0 25px white;
+  border-radius: 10px;
+  box-shadow: 0 0 5px black;
+  padding: 5px 0;
+  transition: ease-out 0.5s;
+}
+.function-wrap button:hover{
+  text-shadow: 0 0 10px black, 0 0 15px white, 0 0 25px white;
+  box-shadow: 0 0 5px black, 0 0 25px white;
+transition: ease-in 0.2s;
 }
 .control-btn{
     background-color: black;
@@ -104,31 +144,37 @@ video{
     font-size: 15px;
     box-shadow: 0 0 5px 2px whitesmoke;
 }
-
-
-
-
 .cut-slider-wrapper{
     display: none;
     transition: opacity 1s ease-out;
 }
 .double-slider{
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 8fr 1fr;
     width: 100%;
 }
+.double-slider span{
+  padding: 10px
+}
 .inputTime{
-    width:30px;
+    width:100px;
+    border-radius: 5px;
+    text-align: center;
+    background-color: black;
+    color:  white;
+    border: 0;
+    box-shadow: 0 0 10px white, 0 0 15px black;
 }
 .range_container {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 30px;
+  padding-top: 15px;
 }
 
 .sliders_control {
   position: relative;
-  min-height: 50px;
 }
 
 .form_control {
@@ -141,9 +187,10 @@ video{
 .cut-slider-wrapper input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   pointer-events: all;
-  width: 24px;
-  height: 24px;
-  background-color: #fff;
+  width: 15px;
+  height: 15px;
+  background-color: rgb(0, 0, 0);
+  border: 1px solid white;
   border-radius: 50%;
   box-shadow: 0 0 0 1px #C6C6C6;
   cursor: pointer;
@@ -152,8 +199,8 @@ video{
 .cut-slider-wrapper input[type=range]::-moz-range-thumb {
   -webkit-appearance: none;
   pointer-events: all;
-  width: 24px;
-  height: 24px;
+  width: 15px;
+  height: 15px;
   background-color: #fff;
   border-radius: 50%;
   box-shadow: 0 0 0 1px #C6C6C6;
@@ -185,4 +232,6 @@ video{
 
 .time-wrapper{
     height: 75px;
+    width: 100%;
+    background-color: #000000;
 }

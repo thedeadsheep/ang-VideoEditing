@@ -1,77 +1,85 @@
-<div class="video-wrap">
-    <video id="video-played">
-        <source src="" type="video/mp4">
-        <source src="" type="video/ogg">
-        Your browser does not support the video tag.
-    </video>
-</div>
-<div class="time-wrapper">
-    <div class="time-range" id="time-seek">
-        {{currentTime}}
-        <span>
-            <input type="range" id="time-range" [value]="currentTime" (change)="seekTime()">
-        </span>
-
+<div class="grid">
+    <div class="video-wrap">
+        <video id="video-played">
+            <source src="" type="video/mp4">
+            <source src="" type="video/ogg">
+            Your browser does not support the video tag.
+        </video>
     </div>
-    <div class="cut-slider-wrapper" id="cut-slider-wrapper">
-        <div class="double-slider">
-            <span>
-                <input class="inputTime" value="1" id="fromInput">
+    <div class="time-wrapper">
+        <div class="time-range" id="time-seek">
+            <span class="current-time">
+                {{currentTimeText}}
             </span>
-            <div class="range_container">
-                <div class="sliders_control">
-                    <input id="fromSlider" type="range" value="10" min="0" max="100" />
-                    <input id="toSlider" type="range" value="40" min="0" max="100" />
+            <span>
+                <input type="range" id="time-range" [value]="currentTime" (change)="seekTime()">
+            </span>
+
+        </div>
+        <div class="cut-slider-wrapper" id="cut-slider-wrapper">
+            <div class="double-slider">
+                <span>
+                    <input class="inputTime" value="1" id="fromInput">
+                </span>
+                <div class="range_container">
+                    <div class="sliders_control">
+                        <input id="fromSlider" type="range" value="10" min="0" max="100" />
+                        <input id="toSlider" type="range" value="40" min="0" max="100" />
+                    </div>
+
                 </div>
-
+                <span>
+                    <input class="inputTime" value="1" id="toInput">
+                </span>
             </div>
+            <div class="function-wrap">
+                <button (click)="cutThis()">
+                    <span>
+                        <i class='fas fa-cut'></i> Cut this point
+                    </span>
+                </button>
+                <button (click)="loopThis()">
+                    <span>
+                        <i class='fas fa-undo-alt'></i>
+                        Loop this point
+                    </span>
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="video-controller">
+        <button (click)="stopVideo()" class="control-btn">
+            <i class='fas fa-stop'></i>
+        </button>
+        <button (click)="playPause()" class="control-btn">
             <span>
-                <input class="inputTime" value="1" id="toInput">
+                <i class='fas fa-play'></i> &nbsp;/ &nbsp;<i class='fas fa-pause'></i>
             </span>
+        </button>
+
+        <button (click)="prev5Sec()" class="control-btn">
+            <i class='fas fa-angle-double-left'></i>
+        </button>
+        <button (click)="next5Sec()" class="control-btn">
+            <i class='fas fa-angle-double-right'></i>
+        </button>
+        <button (click)="changeTimeSeek()" class="control-btn">
+            <span>
+                <i class='fas fa-cut'></i>&nbsp;<i class='fas fa-film'></i>
+            </span>
+        </button>
+        <button (click)="muteVol()" class="control-btn">
+            <i class='fas fa-volume-mute'></i>
+        </button>
+        <div class="volumm">
+            <input type="range" class="volumm-range" min=1 max=100 (change)="changeVol()" id="slider-vol"
+                [value]="volValue*100">
         </div>
-        <div class="">
-            <button (click)="cutThis()">
-                cut this Position
-            </button>
-            <button (click)="loopThis()">
-                loop this Position
-            </button>
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="video-controller">
-    <button (click)="stopVideo()" class="control-btn">
-        Stop
-    </button>
-    <button (click)="playPause()" class="control-btn">
-        play/pause
-    </button>
-    <button (click)="pauseVideo()" class="control-btn">
-        Pause
-    </button>
-    <button (click)="prev5Sec()" class="control-btn">
-        prev
-    </button>
-    <button (click)="next5Sec()" class="control-btn">
-        next
-    </button>
-    <button (click)="changeTimeSeek()" class="control-btn">
-        openCut
-    </button>
-    <button (click)="muteVol()" class="control-btn">
-        Mute
-    </button>
-    <div class="volumm">
-        <input type="range" class="volumm-range" min=1 max=100 (change)="changeVol()" id="slider-vol"
-            [value]="volValue*100">
-    </div>
-
-
-    <!--
+        <!--
 <div class="marking-function">
     <form [formGroup]="markingPoint" (ngSubmit)="markingLoop(null, null)">
         <div>
@@ -96,4 +104,5 @@
     -->
 
 
+    </div>
 </div>

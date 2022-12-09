@@ -44,7 +44,8 @@ module.exports = {
         }
         console.log("out of merge")
         sendFile = "uploads\\" + sId + "\\" + finalFile.editedName
-        res.download(sendFile, "renderedFile.mp4")
+        res.attachment(path.resolve(sendFile))
+        res.send()
     }
 
 }

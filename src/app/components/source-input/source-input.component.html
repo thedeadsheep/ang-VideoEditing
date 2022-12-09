@@ -3,18 +3,20 @@
     <div class="dropzone">
 
         <div class="imageholder">
-            Drop your Video Here
+            <span id="drop-text">
+                Drop your Video Here
+            </span>
         </div>
-        <input type="file" multiple (change)="fileBrowseHandler($event)" class="file">
+        <input type="file" multiple (change)="fileBrowseHandler($event)" class="file" id="file-input">
 
     </div>
     <div class="fileuploaded">
         <div *ngFor="let video of fileInput" class="video-input-item">
             <button (click)="transVideo(video)" class="video-item">
-                <video height="50px">
+                <video height="100px">
                     <source [src]="sanitize(video.blobURL)">
                 </video>
-                <div>
+                <div class="video-name">
                     {{video.name}}
                 </div>
             </button>

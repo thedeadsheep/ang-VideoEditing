@@ -1,28 +1,47 @@
 <div class="grid-view">
     <div class="media-input">
-
         <div *ngFor="let data of arrayOfCutVideo" class="cut-point">
-            <button (click)="addVideoToRenderArray(data.id)">
-                <video height="50px">
-                    <source [src]="sanitize(data.video.blobURL)">
-                </video>
-                <p>
-                    {{data.video.name}}
-                </p>
-                <p>
-                    {{data.start}} --> {{ data.end}}
-                </p>s
+            <button (click)="addVideoToRenderArray(data.id)" class="btn-cut-video">
+                <div class="info-wrap">
+                    <video height="50px">
+                        <source [src]="sanitizeTime(data)">
+                    </video>
+                    <div class="metadata">
+                        <p>
+                            {{data.video.name}}
+                        </p>
+                        <span>
+                            {{data.start}} <i class='fas fa-arrow-right'></i> {{ data.end}}
+                        </span>
+                    </div>
+                </div>
+                <div class="delete-btn">
+                    <i class='fas fa-trash'></i>
+                </div>
+
             </button>
         </div>
     </div>
     <div class="media-timeline">
         <div *ngFor="let cut of mergeData" (click)="removeCut(cut.id)">
-            <button>
-                {{cut | json}}
-            </button>
+            <div class="wrap">
+                <div>
+                    <video height="50px">
+                        <source [src]="sanitize(cut.video.blob)">
+                    </video>
+                </div>
+                <div>
+                    {{cut.video.name}}
+                </div>
+                <div>
+                    ({{cut.start}}, {{cut.end}})
+                </div>
+                <div>
+                    {{cut.beginTime}} ----- {{cut.endTime}}
+                </div>
+            </div>
 
         </div>
-
     </div>
 </div>
 <button (click)="sendRequest()">

@@ -12,6 +12,7 @@ export class VideoComponent implements OnChanges {
   video: any
   volValue: any
   currentTime: any
+  currentTimeText: any
   timeDuration: any
   bTS: boolean = false
   public markingPoint = this.fb.group({
@@ -30,6 +31,11 @@ export class VideoComponent implements OnChanges {
     this.getPlayedTime();
     this.cutSlider()
 
+  }
+  secondsToTime(seconds: any) {
+    seconds = parseFloat(seconds)
+    const result = new Date(seconds * 1000).toISOString().slice(11, 19);
+    return result
   }
   changeTimeSeek() {
     var doubleSlider = <HTMLDivElement>document.getElementById("cut-slider-wrapper")
@@ -62,8 +68,8 @@ export class VideoComponent implements OnChanges {
     upperSlider.oninput = () => {
       lowerVal = parseInt(lowerSlider.value);
       upperVal = parseInt(upperSlider.value);
-      lowerInput.value = ((this.video.duration * lowerVal) / 100).toString()
-      upperInput.value = ((this.video.duration * upperVal) / 100).toString()
+      lowerInput.value = this.secondsToTime(((this.video.duration * lowerVal) / 100).toString())
+      upperInput.value = this.secondsToTime(((this.video.duration * upperVal) / 100).toString())
       if (upperVal < lowerVal + 2) {
         lowerSlider.value = (upperVal - 2).toString();
         console.log(lowerVal, upperVal)
@@ -75,8 +81,8 @@ export class VideoComponent implements OnChanges {
     lowerSlider.oninput = () => {
       lowerVal = parseInt(lowerSlider.value);
       upperVal = parseInt(upperSlider.value);
-      lowerInput.value = ((this.video.duration * lowerVal) / 100).toString()
-      upperInput.value = ((this.video.duration * upperVal) / 100).toString()
+      lowerInput.value = this.secondsToTime(((this.video.duration * lowerVal) / 100).toString())
+      upperInput.value = this.secondsToTime(((this.video.duration * upperVal) / 100).toString())
       console.log(lowerVal, upperVal)
       if (lowerVal > upperVal - 2) {
         upperSlider.value = (lowerVal + 2).toString();
@@ -91,15 +97,10 @@ export class VideoComponent implements OnChanges {
   getPlayedTime() {
     this.video.ontimeupdate = () => {
       this.currentTime = this.video.currentTime
+      this.currentTimeText = this.secondsToTime(this.currentTime)
     }
     this.video.oncanplay = () => {
       this.getDuration()
-      const startInput = (<HTMLInputElement>document.getElementById("start-point"))
-      const endInput = (<HTMLInputElement>document.getElementById("end-point"))
-      startInput.placeholder = this.video.currentTime
-      endInput.placeholder = this.video.duration;
-      startInput.min = '0'
-      endInput.max = this.video.duration.toString()
     }
 
 
@@ -176,61 +177,25 @@ export class VideoComponent implements OnChanges {
     this.video.currentTime = this.timeDuration.value
   }
 
-  markingLoop(startLoop: any, endLoop: any) {
-    const start = (startLoop != null) ? startLoop : this.markingPoint.value.start
-    const end = (endLoop != null) ? endLoop : this.markingPoint.value.end
-    console.log("start: ", start, "end: ", end)
-    if (end < start) {
-      return
-    }
-    this.video.currentTime = start
-    this.video.ontimeupdate = () => {
-      if (this.video.currentTime > end) {
-        this.video.currentTime = start
-      }
-    }
-  }
-  unMarking() {
-    this.markingLoop(0, this.video.duration)
-  }
-
-
-  createMarkingCutPoint() {
-    var cutPoint = {
-      id: UUID.UUID(),
-      video: this.videoLoad,
-      start: this.markingPoint.value.start,
-      end: this.markingPoint.value.end,
-    }
-    this.cutMark.emit(cutPoint);
-  }
-
-  unForcus() {
-    var start = (<HTMLInputElement>document.getElementById("start-range"))
-    var end = (<HTMLInputElement>document.getElementById("end-range"))
-    start.value = ""
-    end.value = ""
-    this.markingPoint.value.start = ""
-    this.markingPoint.value.end = ""
-
-  }
   cutThis() {
-    const startPoint = <HTMLInputElement>document.getElementById("fromInput")
-    const endPoint = <HTMLInputElement>document.getElementById("toInput")
-    var cutPoint = {
-      id: UUID.UUID(),
-      video: this.videoLoad,
-      start: startPoint.value,
-      end: endPoint.value,
+    if (this.videoLoad) {
+      const startPoint = <HTMLInputElement>document.getElementById("fromInput")
+      const endPoint = <HTMLInputElement>document.getElementById("toInput")
+      var cutPoint = {
+        id: UUID.UUID(),
+        video: this.videoLoad,
+        start: startPoint.value,
+        end: endPoint.value,
+      }
+      this.cutMark.emit(cutPoint);
     }
-    this.cutMark.emit(cutPoint);
+
   }
   loopThis() {
     const startPoint = <HTMLInputElement>document.getElementById("fromInput")
     const endPoint = <HTMLInputElement>document.getElementById("toInput")
     const start = parseFloat(startPoint.value)
     const end = parseFloat(endPoint.value)
-
     if (end < start) {
       return
     }
