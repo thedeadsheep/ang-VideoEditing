@@ -34,8 +34,8 @@ transition: ease-in .5s;
 }
 
 .media-timeline{
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
     overflow-x: scroll;
     justify-content: center;
     align-items: center;
@@ -106,4 +106,20 @@ transition: ease-in .5s;
   box-shadow: 0 0 10px white, 0 0 12px black, 0 0 20px white;
   padding: 10px;
   border-radius: 5px;
+  max-width: 400px;
+  overflow: hidden;
+  min-width: 200px;
+}
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#0C9;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
 }

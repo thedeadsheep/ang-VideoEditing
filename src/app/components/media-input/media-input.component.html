@@ -1,8 +1,8 @@
 <div class="grid-view">
     <div class="media-input">
         <div *ngFor="let data of arrayOfCutVideo" class="cut-point">
-            <button (click)="addVideoToRenderArray(data.id)" class="btn-cut-video">
-                <div class="info-wrap">
+            <button class="btn-cut-video">
+                <div class="info-wrap" (click)="addVideoToRenderArray(data.id)">
                     <video height="50px">
                         <source [src]="sanitizeTime(data)">
                     </video>
@@ -15,7 +15,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="delete-btn">
+                <div class="delete-btn" (click)="deleteMarking(data.id)">
                     <i class='fas fa-trash'></i>
                 </div>
 
@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="media-timeline">
-        <div *ngFor="let cut of mergeData" (click)="removeCut(cut.id)">
+        <div *ngFor="let cut of mergeData" (click)="removeCut(cut.id)" class="div-cut">
             <div class="wrap">
                 <div>
                     <video height="50px">
@@ -42,8 +42,10 @@
             </div>
 
         </div>
+
     </div>
+
 </div>
-<button (click)="sendRequest()">
+<button (click)="sendRequest()" class="float">
     Send Request
 </button>

@@ -15,19 +15,23 @@ export class MediaInputComponent implements OnChanges {
     private renderService: RenderServiceService) { }
   @Input() arrayOfCutVideo: any = {}
   mergeData: any = []
+  cutVideo: any
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.arrayOfCutVideo)
+
   }
+  deleteMarking(id: any) {
+    var index = this.arrayOfCutVideo.findIndex((cut: any) => { return cut.id == id })
+    console.log(index)
+    this.arrayOfCutVideo.splice(index, 1)
+  }
+
   randomIntSecond(start: any, end: any) {
-    console.log(start)
     var random1 = this.hmsToSecondsOnly(start)
     var random2 = this.hmsToSecondsOnly(end)
-    console.log(typeof random1);
     const rndInt = Math.floor(Math.random() * random2) + random1
     return rndInt
   }
   sanitizeTime(data: any) {
-    console.log(data)
     var url = data.video.blobURL + "#t=" + this.randomIntSecond(data.start, data.end).toString()
     let index = this.arrayOfCutVideo.findIndex((v: any) => v.id === data.id)
     this.arrayOfCutVideo[index].video.blob = url
@@ -37,7 +41,6 @@ export class MediaInputComponent implements OnChanges {
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
   hmsToSecondsOnly(str: any) {
-    console.log(str);
     var p = str.split(':'),
       s = 0, m = 1;
 
@@ -53,9 +56,7 @@ export class MediaInputComponent implements OnChanges {
     return result
   }
   addVideoToRenderArray(id: any) {
-    console.log("arry", this.arrayOfCutVideo)
     var pushObj = this.arrayOfCutVideo.find((obj: any) => { return obj.id === id })
-    console.log(pushObj)
     var beginTime;
     var endTime;
     if (this.mergeData.length == 0) {
@@ -74,7 +75,6 @@ export class MediaInputComponent implements OnChanges {
       endTime: endTime
     }
     this.mergeData.push(obj)
-    console.log(this.mergeData)
   }
 
   removeCut(id: any) {
@@ -109,7 +109,6 @@ export class MediaInputComponent implements OnChanges {
       }
       requestData.videoProcess.push(data)
     }
-    console.log(requestData)
     this.renderService.renderRequest(requestData).subscribe((data: Blob | MediaSource) => {
       let downloadURL = window.URL.createObjectURL(data)
       saveAs(downloadURL)
