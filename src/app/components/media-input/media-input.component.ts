@@ -16,6 +16,7 @@ export class MediaInputComponent implements OnChanges {
   @Input() arrayOfCutVideo: any = {}
   mergeData: any = []
   cutVideo: any
+  spinnerOpen: boolean = false
   ngOnChanges(changes: SimpleChanges): void {
 
   }
@@ -94,6 +95,7 @@ export class MediaInputComponent implements OnChanges {
     }
   }
   sendRequest() {
+    this.spinnerOpen = true
     var requestData: any = {
       sessionID: localStorage.getItem("sessionID"),
       videoProcess: []
@@ -112,13 +114,7 @@ export class MediaInputComponent implements OnChanges {
     this.renderService.renderRequest(requestData).subscribe((data: Blob | MediaSource) => {
       let downloadURL = window.URL.createObjectURL(data)
       saveAs(downloadURL)
-    })
-  }
-  downloadFile(file: any) {
-    this.renderService.downloadFile(file).subscribe((data: Blob | MediaSource) => {
-      let downloadURL = window.URL.createObjectURL(data)
-
-      saveAs(downloadURL)
+      this.spinnerOpen = false
     })
   }
 }

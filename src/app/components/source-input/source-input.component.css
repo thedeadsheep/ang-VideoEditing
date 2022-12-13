@@ -11,6 +11,7 @@
     width: 100%;
     position: relative;
     height: 20%;
+    cursor: pointer;
 }
 .dropzone div.imageholder{
     width: 100%;
@@ -33,6 +34,7 @@ input.file{
     height: 100%;
     width: 100%;
     position: absolute;
+    cursor: pointer;
 }
 .fileuploaded{
     display: flex;
@@ -53,8 +55,8 @@ input.file{
     background-color: black;
     color: white;
     letter-spacing: 1px;
-    transition: ease-out 0.1s
-
+    transition: ease-out 0.1s;
+    cursor: pointer;
 }
 .video-input-item:hover {
   box-shadow: 0 0 10px #bababb, 0 0 40px #bdbdbd, 0 0 20px #535353;
