@@ -60,9 +60,12 @@ app.post('/multiple/:sId', async (req, res) => {
       sessionId: sessionId,
       serverResponse: serverResponse,
     }
-    res.json({
-      data: data
-    })
+    setTimeout(() => {
+      res.json({
+        data: data
+      })
+    }, 500);
+
   })
 })
 

@@ -19,7 +19,16 @@
                 <div class="video-name">
                     {{video.name}}
                 </div>
+
             </button>
+            <div class="loading" *ngIf="loadingState">
+                <div class="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
         </div>
     </div>
 

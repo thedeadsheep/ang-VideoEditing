@@ -9,6 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class SourceInputComponent implements OnInit {
   fileInput: any = []
   firstUpload: boolean = true
+  loadingState: boolean = false
   constructor(
     private ss: SourceServiceService,
     private sanitizer: DomSanitizer) { }
@@ -53,6 +54,7 @@ export class SourceInputComponent implements OnInit {
   }
 
   uploadVideos(multipleVideos: any[]) {
+    this.loadingState = true
     console.log("MV: ", multipleVideos)
     const formData = new FormData()
     for (let item of multipleVideos) {
@@ -64,6 +66,7 @@ export class SourceInputComponent implements OnInit {
       console.log(res.data.serverResponse)
       this.dataNormalizer(res.data.serverResponse)
       localStorage.setItem("sessionID", res.data.sessionId)
+      this.loadingState = false
       // dữ liệu nhận cần thêm 2 thuộc tính về path và uploaded
     })
   }
