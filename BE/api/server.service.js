@@ -1,4 +1,5 @@
 const { default: ShortUniqueId } = require("short-unique-id")
+const fs = require('fs')
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 module.exports = {
@@ -19,5 +20,32 @@ module.exports = {
         await createFolder()
         return sessionId
     },
+    deleteCache: async () => {
+        fs.readdirSync('./uploads/').forEach(file => {
+            fs.stat('./uploads/' + file, async (err, stats) => {
+                if (err) {
+                    throw err
+                }
+
+                // print file last modified date
+                console.log((new Date().getDate() - new Date(stats.mtime).getDate()))
+                console.log(`File Status Last Modified: ${stats.ctime}`)
+                async function deleteFolder(dFold) {
+                    try {
+                        const { stdout, stderr } = await exec(`rmdir uploads\\${dFold}`);
+
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+                var rmDate = Math.abs(new Date().getDate() - new Date(stats.mtime).getDate())
+                if (rmDate == 7) {
+
+                    await deleteFolder(file)
+                }
+            })
+        });
+        return true
+    }
 
 }

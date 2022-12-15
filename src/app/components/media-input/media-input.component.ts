@@ -17,6 +17,11 @@ export class MediaInputComponent implements OnChanges {
   mergeData: any = []
   cutVideo: any
   spinnerOpen: boolean = false
+  reqOp: object = {
+    ratio: false,
+    speedup: false
+  }
+  showReqOp: boolean = false
   ngOnChanges(changes: SimpleChanges): void {
 
   }
@@ -76,12 +81,16 @@ export class MediaInputComponent implements OnChanges {
       endTime: endTime
     }
     this.mergeData.push(obj)
+    if (this.mergeData.length > 0) {
+      this.showReqOp = true
+    }
   }
 
   removeCut(id: any) {
     let index = this.mergeData.findIndex((v: any) => v.id === id)
     this.mergeData.splice(index, 1)
     if (this.mergeData.length == 0) {
+      this.showReqOp = false
       return
     }
     if (index == 0) {
@@ -93,14 +102,20 @@ export class MediaInputComponent implements OnChanges {
       this.mergeData[i].beginTime = this.mergeData[i - 1].endTime
       this.mergeData[i].endTime = this.secondsToTime((this.hmsToSecondsOnly(this.mergeData[i].end) - this.hmsToSecondsOnly(this.mergeData[i].start)) + this.hmsToSecondsOnly(this.mergeData[i].beginTime))
     }
+    console.log(this.mergeData)
+
   }
   sendRequest() {
     this.spinnerOpen = true
     var requestData: any = {
       sessionID: localStorage.getItem("sessionID"),
-      videoProcess: []
+      videoProcess: [],
+      videoRatio: "",
+      speedup: false,
     }
-
+    var videoRatio = <HTMLSelectElement>document.getElementById('video-ratio')
+    var speedup = <HTMLInputElement>document.getElementById('speed-up')
+    console.log(videoRatio.value, speedup.checked)
     var length = this.mergeData.length
     let data
     for (var i = 0; i < length; i++) {
@@ -111,6 +126,8 @@ export class MediaInputComponent implements OnChanges {
       }
       requestData.videoProcess.push(data)
     }
+    requestData.videoRatio = videoRatio.value
+    requestData.speedup = speedup.checked
     this.renderService.renderRequest(requestData).subscribe((data: Blob | MediaSource) => {
       let downloadURL = window.URL.createObjectURL(data)
       saveAs(downloadURL)

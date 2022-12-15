@@ -46,10 +46,45 @@
     </div>
 
 </div>
-<button (click)="sendRequest()" class="float">
-    Send Request
+<button class="float" data-bs-toggle="modal" data-bs-target="#myModal" *ngIf="showReqOp">
+    Request Optinon
 </button>
 
 <div class="spinner" *ngIf="spinnerOpen">
 
+</div>
+
+<!-- The Modal -->
+<div class="modal fade " id="myModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Request Option</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <span>
+                    Video Ratio
+                    <select class="form-select" id="video-ratio">
+                        <option value="portrait">Portrait</option>
+                        <option value="landscape" selected>Landscape</option>
+                    </select>
+                </span>
+
+                <span>
+                    SpeedUp: 2x <input type="checkbox" id="speed-up" name="2xSpeedUp" value="SpeedUp">
+                </span>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="sendRequest()">Send Request</button>
+            </div>
+
+        </div>
+    </div>
 </div>

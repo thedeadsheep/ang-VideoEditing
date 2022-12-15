@@ -1,5 +1,5 @@
-const { trimVideo, renderVideo } = require("./api/ffmpeg.controller")
-const { createSessionId, } = require("./api/server.service")
+const { renderVideo } = require("./api/ffmpeg.controller")
+const { createSessionId, deleteCache, } = require("./api/server.service")
 const express = require('express')
 
 
@@ -19,8 +19,6 @@ app.use(bodyparser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
 
 app.use(cors())
-
-app.post('/trim', trimVideo)
 
 app.post('/renderVideo', renderVideo);
 
@@ -68,6 +66,11 @@ app.post('/multiple/:sId', async (req, res) => {
 
   })
 })
+
+//delete old video folder
+setInterval(() => {
+  var a = deleteCache()
+}, 604800 * 1000)
 
 app.listen(3000, () => {
   console.log("App is listening on port 3000")
