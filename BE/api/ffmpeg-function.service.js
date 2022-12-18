@@ -3,10 +3,11 @@ const exec = util.promisify(require('child_process').exec);
 const { default: ShortUniqueId } = require("short-unique-id")
 module.exports = {
 
-    trim: async (file, sId) => {
+    trim: async (file, sId, extensionName) => {
         const temp = new ShortUniqueId({ length: 12 })
         var tempName = await temp()
-        tempName = tempName + ".mp4"
+
+        tempName = tempName + "." + extensionName
         console.log(" inside service", file, sId)
         var fileInputName = "uploads\\" + sId + "\\" + file.fileName
         var fileOutputName = "uploads\\" + sId + "\\" + tempName
@@ -25,7 +26,7 @@ module.exports = {
         await lsExample()
         return tempName
     },
-    merge: async (fileNo1, fileNo2, sId, frame) => {
+    merge: async (fileNo1, fileNo2, sId, frame, extensionName) => {
         const temp = new ShortUniqueId({ length: 12 })
         var tempName = await temp()
         var fileNameNo1 = "uploads\\" + sId + "\\" + fileNo1.editedName
@@ -38,7 +39,7 @@ module.exports = {
         } else {
             frameRatio = "720:1280"
         }
-        tempName = tempName + ".mp4"
+        tempName = tempName + "." + extensionName
         var fileOutputName = "uploads\\" + sId + "\\" + tempName
         async function lsExample() {
             try {
@@ -56,12 +57,39 @@ module.exports = {
             editedName: tempName
         }
     },
+    changeFrameSingleVideo: async (file, sId, frame, extensionName) => {
+        const temp = new ShortUniqueId({ length: 12 })
+        var tempName = await temp()
+        tempName = tempName + "." + extensionName
+        console.log(" inside speedup", file, sId)
+        var fileInputName = "uploads\\" + sId + "\\" + file.editedName
+        var fileOutputName = "uploads\\" + sId + "\\" + tempName
+        var frameRatio
+        if (frame === "landscape") {
+            frameRatio = "1280:720"
+        } else {
+            frameRatio = "720:1280"
+        }
+        async function changeRatio() {
+            try {
+                const { stdout, stderr } = await exec(`ffmpeg -i ${fileInputName} -vf "scale=${frameRatio}:force_original_aspect_ratio=decrease,pad=${frameRatio}:-1:-1:color=black" ${fileOutputName}`);
 
-    speedUpVideo: async (file, sId) => {
+                console.log("done", file.editedName)
+            } catch (e) {
+                console.error(e); // should contain code (exit code) and signal (that caused the termination).
+            }
+        }
+        await changeRatio();
+        return {
+            originName: file.editedName,
+            editedName: tempName
+        }
+    },
+    speedUpVideo: async (file, sId, extensionName) => {
         console.log(file)
         const temp = new ShortUniqueId({ length: 12 })
         var tempName = await temp()
-        tempName = tempName + ".mp4"
+        tempName = tempName + "." + extensionName
         console.log(" inside speedup", file, sId)
         var fileInputName = "uploads\\" + sId + "\\" + file.editedName
         var fileOutputName = "uploads\\" + sId + "\\" + tempName

@@ -115,6 +115,7 @@ export class MediaInputComponent implements OnChanges {
     }
     var videoRatio = <HTMLSelectElement>document.getElementById('video-ratio')
     var speedup = <HTMLInputElement>document.getElementById('speed-up')
+    var xName = <HTMLSelectElement>document.getElementById('extension-name')
     console.log(videoRatio.value, speedup.checked)
     var length = this.mergeData.length
     let data
@@ -128,6 +129,7 @@ export class MediaInputComponent implements OnChanges {
     }
     requestData.videoRatio = videoRatio.value
     requestData.speedup = speedup.checked
+    requestData.extensionName = xName.value
     this.renderService.renderRequest(requestData).subscribe((data: Blob | MediaSource) => {
       let downloadURL = window.URL.createObjectURL(data)
       saveAs(downloadURL)
