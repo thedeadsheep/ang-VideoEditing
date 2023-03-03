@@ -1,0 +1,13 @@
+<div>
+    <video id="preview-video" class="preview-video">
+
+    </video>
+    <button (click)="abc()" class="play-btn">
+        play
+    </button>
+</div>
+<div *ngFor="let cut of cutPoint">
+    <button (click)="check(cut)">
+        {{cut.begin}}
+    </button>
+</div>

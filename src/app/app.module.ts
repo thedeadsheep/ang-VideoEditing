@@ -9,6 +9,7 @@ import { MediaInputComponent } from './components/media-input/media-input.compon
 import { SourceInputComponent } from './components/source-input/source-input.component';
 import { GridAppComponent } from './components/grid-app/grid-app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PreviewComponent } from './components/preview/preview.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
     MediaInputComponent,
     SourceInputComponent,
     GridAppComponent,
+    PreviewComponent,
   ],
   imports: [
     BrowserModule,

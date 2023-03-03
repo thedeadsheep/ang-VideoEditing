@@ -46,6 +46,9 @@
     </div>
 
 </div>
+<button (click)="clickToPreview()">
+    preview
+</button>
 <button class="float" data-bs-toggle="modal" data-bs-target="#myModal" *ngIf="showReqOp">
     Request Optinon
 </button>
@@ -53,6 +56,11 @@
 <div class="spinner" *ngIf="spinnerOpen">
 
 </div>
+
+<app-preview [videoArray]="mergeData">
+
+</app-preview>
+
 
 <!-- The Modal -->
 <div class="modal fade " id="myModal">

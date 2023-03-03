@@ -1,4 +1,4 @@
-import { Component, OnChanges, SimpleChanges, Input } from '@angular/core';
+import { Component, SimpleChanges, Input, OnInit } from '@angular/core';
 import { UUID } from 'angular2-uuid';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RenderServiceService } from 'src/app/services/render-service.service';
@@ -8,7 +8,7 @@ import { saveAs } from 'file-saver'
   templateUrl: './media-input.component.html',
   styleUrls: ['./media-input.component.css']
 })
-export class MediaInputComponent implements OnChanges {
+export class MediaInputComponent implements OnInit {
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -22,7 +22,9 @@ export class MediaInputComponent implements OnChanges {
     speedup: false
   }
   showReqOp: boolean = false
-  ngOnChanges(changes: SimpleChanges): void {
+  video: any
+  //videoPreview: any = []
+  ngOnInit(): void {
 
   }
   deleteMarking(id: any) {
@@ -81,6 +83,7 @@ export class MediaInputComponent implements OnChanges {
       endTime: endTime
     }
     this.mergeData.push(obj)
+    console.log(this.mergeData)
     if (this.mergeData.length > 0) {
       this.showReqOp = true
     }
@@ -135,6 +138,42 @@ export class MediaInputComponent implements OnChanges {
       saveAs(downloadURL)
       this.spinnerOpen = false
     })
+  }
+
+
+
+  clickToPreview() {
+    var videoPreview = this.mergeData
+    console.log(videoPreview)
+    this.video = <HTMLVideoElement>document.getElementById('preview-video')
+    this.continuousPlayingVideo(videoPreview, 0)
+  }
+  continuousPlayingVideo(videoPreview: any, index: number) {
+    if (index >= videoPreview.length)
+      return
+
+    var playVideo = videoPreview[index]
+    console.log(playVideo)
+    this.video.src = this.loadVideo(playVideo)
+    playVideo.start = this.hmsToSecondsOnly(playVideo.start)
+    playVideo.end = this.hmsToSecondsOnly(playVideo.end)
+    this.video.currentTime = playVideo.start
+    this.video.play()
+    this.video.ontimeupdate = () => {
+      if (parseInt(this.video.currentTime) === parseInt(playVideo.end)) {
+
+        this.video.pause()
+        this.continuousPlayingVideo(videoPreview, index + 1)
+      }
+
+    }
+  }
+  loadVideo(video: any) {
+    const file = video.video
+    if (file) {
+      return URL.createObjectURL(file)
+    }
+    return false
   }
 }
 

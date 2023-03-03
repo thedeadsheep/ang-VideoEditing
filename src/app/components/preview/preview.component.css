@@ -1,0 +1,9 @@
+.preview-video{
+    position: relative;
+}
+.play-btn{
+    position: absolute;
+    background-color: white;
+    height: 100px;
+    width: 100px;
+}

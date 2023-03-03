@@ -121,8 +121,6 @@ export class VideoComponent implements OnChanges {
     const file = this.videoLoad
     if (file) {
       this.video.src = URL.createObjectURL(file)
-
-
     }
   }
   playPause() {
@@ -181,6 +179,10 @@ export class VideoComponent implements OnChanges {
     if (this.videoLoad) {
       const startPoint = <HTMLInputElement>document.getElementById("fromInput")
       const endPoint = <HTMLInputElement>document.getElementById("toInput")
+      if (parseInt(endPoint.value) - parseInt(startPoint.value) === 0) {
+        alert("it is ZERO space")
+        return
+      }
       var cutPoint = {
         id: UUID.UUID(),
         video: this.videoLoad,

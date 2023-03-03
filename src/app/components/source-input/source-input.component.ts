@@ -30,7 +30,6 @@ export class SourceInputComponent implements OnInit {
     this.uploadVideos(this.fileInput)
     this.fileInput.forEach((video: any) => {
       video.blobURL = URL.createObjectURL(video)
-      console.log(video.blobURL)
     });
   }
 
@@ -55,7 +54,6 @@ export class SourceInputComponent implements OnInit {
 
   uploadVideos(multipleVideos: any[]) {
     this.loadingState = true
-    console.log("MV: ", multipleVideos)
     const formData = new FormData()
     for (let item of multipleVideos) {
       if (item.uploaded != true)
@@ -63,7 +61,6 @@ export class SourceInputComponent implements OnInit {
     }
     var sid = localStorage.getItem("sessionID") || "null"
     this.ss.uploadSource(formData, sid).subscribe((res) => {
-      console.log(res.data.serverResponse)
       this.dataNormalizer(res.data.serverResponse)
       localStorage.setItem("sessionID", res.data.sessionId)
       this.loadingState = false
