@@ -19,6 +19,5 @@ export class GridAppComponent implements OnInit {
   }
   getCutPointOfViedeo(cutPoint: any) {
     this.renderVideoData.push(cutPoint)
-    console.log(this.renderVideoData)
   }
 }

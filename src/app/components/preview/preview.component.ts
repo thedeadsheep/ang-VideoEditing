@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-preview',
@@ -6,15 +6,23 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
   styleUrls: ['./preview.component.css']
 })
 export class PreviewComponent implements OnChanges {
-  @Input() videoArray: any
+  @Input() videoArray: any = []
+  @Output() filterInfoEmit = new EventEmitter<any>();
   constructor() { }
+  ngOnInit(): void {
+  }
   video: any
   videoPreview: any = []
   cutPoint: any = []
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes['videoArray'])
     this.videoPreview = this.videoArray
+    console.log(this.videoPreview)
+    this.cutPoint = []
     this.video = <HTMLVideoElement>document.getElementById('preview-video')
   }
+
+
   cutPointSet() {
     this.cutPoint = []
     var l = this.videoPreview.length - 1
@@ -93,5 +101,46 @@ export class PreviewComponent implements OnChanges {
     console.log(temp)
     this.continuousPlayingVideo(temp.begin, temp.num)
   }
+  setFilterValue() {
+    let hueValue = <HTMLParagraphElement>document.getElementById('hue-value')
+    let satValue = <HTMLParagraphElement>document.getElementById('sat-value')
+    let brightValue = <HTMLParagraphElement>document.getElementById('bright-value')
+    let imageRotate = <HTMLVideoElement>document.getElementById('preview-video')
+    imageRotate.style.filter = "hue-rotate(" + hueValue.innerHTML + "deg) saturate(" + satValue.innerHTML + ") brightness(" + brightValue.innerHTML + ")"
+  }
+  filterChange() {
+    let hueValue = <HTMLParagraphElement>document.getElementById('hue-value')
+    let hueSlider = <HTMLInputElement>document.getElementById("hue-rotate")
 
+    let satValue = <HTMLParagraphElement>document.getElementById('sat-value')
+    let saturate = <HTMLInputElement>document.getElementById('saturate')
+
+    let brightValue = <HTMLParagraphElement>document.getElementById('bright-value')
+    let brightness = <HTMLInputElement>document.getElementById('brightness')
+
+    satValue.innerHTML = saturate.value
+    hueValue.innerHTML = hueSlider.value
+    brightValue.innerHTML = brightness.value
+    this.setFilterValue()
+  }
+  exportFilterInfo() {
+    let hueSlider = <HTMLInputElement>document.getElementById("hue-rotate")
+
+    let saturate = <HTMLInputElement>document.getElementById('saturate')
+
+    let brightness = <HTMLInputElement>document.getElementById('brightness')
+    var filterValue = {
+      hue: hueSlider.value,
+      saturate: saturate.value,
+      brightness: brightness.value
+    }
+    if (filterValue) {
+      if (filterValue.hue === "0" && filterValue.saturate === "1" && filterValue.brightness === "1") {
+        return
+      }
+      console.log(filterValue)
+      this.filterInfoEmit.emit(filterValue)
+    }
+    return
+  }
 }

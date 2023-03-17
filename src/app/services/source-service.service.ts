@@ -9,7 +9,7 @@ export class SourceServiceService {
 
   constructor(private http: HttpClient) { }
   uploadSource(formdata: FormData, sessionID: string) {
-    console.log(sessionID)
+
     let sId: string
     if (sessionID == "null") {
       sId = "noneSID"

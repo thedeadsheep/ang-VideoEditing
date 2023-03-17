@@ -1,9 +1,33 @@
+
 .preview-video{
-    position: relative;
+    width: 100%;
+    max-height: 200px;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 8px;
 }
 .play-btn{
-    position: absolute;
     background-color: white;
-    height: 100px;
-    width: 100px;
+    border-radius: 50%;
+    border: solid 3px white;
+    color: black;
+    background-color: transparent;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wrap-skip{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.skip-point button{
+    width: auto;
+    min-width: 40px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 5px;
+    text-align: center;
 }

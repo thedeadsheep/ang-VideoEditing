@@ -1,6 +1,6 @@
 
 const {
-    trimVideo, trim, merge, speedUpVideo, changeFrameSingleVideo
+    trimVideo, trim, merge, speedUpVideo, changeFrameSingleVideo, addColorFilter
 } = require("./ffmpeg-function.service")
 const path = require('path')
 
@@ -14,6 +14,7 @@ module.exports = {
         var frameRatio = renderReq.videoRatio
         var extensionName = renderReq.extensionName
         console.log(extensionName)
+
         var cutTimes = files.length
         var trimedVideo = []
         for (var i = 0; i < cutTimes; i++) {
@@ -43,12 +44,12 @@ module.exports = {
         if (renderReq.speedup) {
             finalFile = await speedUpVideo(finalFile, sId, extensionName)
         }
+        if (renderReq.filter) {
+            finalFile = await addColorFilter(finalFile, sId, extensionName, renderReq.filter)
+        }
         sendFile = "uploads\\" + sId + "\\" + finalFile.editedName
         res.download(sendFile)
     },
-    downloadVideo: (req, res) => {
-        var renderReq = req.body
-        var sId = renderReq.sessionID
-    }
+
 
 }

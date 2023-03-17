@@ -46,9 +46,6 @@
     </div>
 
 </div>
-<button (click)="clickToPreview()">
-    preview
-</button>
 <button class="float" data-bs-toggle="modal" data-bs-target="#myModal" *ngIf="showReqOp">
     Request Optinon
 </button>
@@ -57,14 +54,10 @@
 
 </div>
 
-<app-preview [videoArray]="mergeData">
-
-</app-preview>
-
 
 <!-- The Modal -->
-<div class="modal fade " id="myModal">
-    <div class="modal-dialog modal-dialog-centered">
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
 
             <!-- Modal Header -->
@@ -75,23 +68,33 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <span>
-                    Extension Name
-                    <select class="form-select" id="extension-name">
-                        <option value="mp4" selected>MP4</option>
-                    </select>
-                </span>
-                <span>
-                    Video Ratio
-                    <select class="form-select" id="video-ratio">
-                        <option value="portrait">Portrait</option>
-                        <option value="landscape" selected>Landscape</option>
-                    </select>
-                </span>
+                <button (click)="reload()">loadreview</button>
+                <div class="video-preview" *ngIf="loadPreview">
+                    preview-video
+                    <app-preview [videoArray]="mergeData" (filterInfoEmit)="getLUT($event)">
 
-                <span>
-                    SpeedUp: 2x <input type="checkbox" id="speed-up" name="2xSpeedUp" value="SpeedUp">
-                </span>
+                    </app-preview>
+                </div>
+                <div class="video-optional">
+                    <span>
+                        Extension Name
+                        <select class="form-select" id="extension-name">
+                            <option value="mp4" selected>MP4</option>
+                        </select>
+                    </span>
+                    <span>
+                        Video Ratio
+                        <select class="form-select" id="video-ratio">
+                            <option value="portrait">Portrait</option>
+                            <option value="landscape" selected>Landscape</option>
+                        </select>
+                    </span>
+
+                    <span>
+                        SpeedUp: 2x <input type="checkbox" id="speed-up" name="2xSpeedUp" value="SpeedUp">
+                    </span>
+                </div>
+
             </div>
 
             <!-- Modal footer -->

@@ -72,7 +72,7 @@ export class VideoComponent implements OnChanges {
       upperInput.value = this.secondsToTime(((this.video.duration * upperVal) / 100).toString())
       if (upperVal < lowerVal + 2) {
         lowerSlider.value = (upperVal - 2).toString();
-        console.log(lowerVal, upperVal)
+
         if (lowerVal == parseInt(lowerSlider.min)) {
           upperSlider.value = "1";
         }
@@ -83,7 +83,7 @@ export class VideoComponent implements OnChanges {
       upperVal = parseInt(upperSlider.value);
       lowerInput.value = this.secondsToTime(((this.video.duration * lowerVal) / 100).toString())
       upperInput.value = this.secondsToTime(((this.video.duration * upperVal) / 100).toString())
-      console.log(lowerVal, upperVal)
+
       if (lowerVal > upperVal - 2) {
         upperSlider.value = (lowerVal + 2).toString();
 
@@ -179,7 +179,8 @@ export class VideoComponent implements OnChanges {
     if (this.videoLoad) {
       const startPoint = <HTMLInputElement>document.getElementById("fromInput")
       const endPoint = <HTMLInputElement>document.getElementById("toInput")
-      if (parseInt(endPoint.value) - parseInt(startPoint.value) === 0) {
+      var space = this.hmsToSecondsOnly(endPoint.value) - this.hmsToSecondsOnly(startPoint.value)
+      if (space <= 0) {
         alert("it is ZERO space")
         return
       }
@@ -208,5 +209,16 @@ export class VideoComponent implements OnChanges {
       }
     }
 
+
+  }
+  hmsToSecondsOnly(str: any) {
+    var p = str.split(':'),
+      s = 0, m = 1;
+
+    while (p.length > 0) {
+      s += m * parseInt(p.pop(), 10);
+      m *= 60;
+    }
+    return s;
   }
 }

@@ -3,11 +3,24 @@
 
     </video>
     <button (click)="abc()" class="play-btn">
-        play
+        <i class='fas fa-play'></i> Load Preview Video
     </button>
 </div>
-<div *ngFor="let cut of cutPoint">
-    <button (click)="check(cut)">
-        {{cut.begin}}
-    </button>
+<div>
+    <div class="filter">
+        <input type="range" id="hue-rotate" min="-180" max="180" value="0" (change)="filterChange()">
+        <P id="hue-value"></P>
+        <input type="range" id="saturate" min="0" max="2" value="1" step="0.2" (change)="filterChange()">
+        <P id="sat-value"></P>
+        <input type="range" id="brightness" min="0" max="2" value="1" step="0.2" (change)="filterChange()">
+        <P id="bright-value"></P>
+    </div>
+    <button (click)="exportFilterInfo()">Emit</button>
+</div>
+<div class="wrap-skip">
+    <div *ngFor="let cut of cutPoint" class="skip-point">
+        <button (click)="check(cut)">
+            {{cut.begin}}
+        </button>
+    </div>
 </div>

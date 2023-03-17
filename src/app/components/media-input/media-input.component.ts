@@ -22,14 +22,15 @@ export class MediaInputComponent implements OnInit {
     speedup: false
   }
   showReqOp: boolean = false
+  loadPreview: boolean = false
   video: any
+  LUTInfo: any
   //videoPreview: any = []
   ngOnInit(): void {
 
   }
   deleteMarking(id: any) {
     var index = this.arrayOfCutVideo.findIndex((cut: any) => { return cut.id == id })
-    console.log(index)
     this.arrayOfCutVideo.splice(index, 1)
   }
 
@@ -83,12 +84,26 @@ export class MediaInputComponent implements OnInit {
       endTime: endTime
     }
     this.mergeData.push(obj)
-    console.log(this.mergeData)
     if (this.mergeData.length > 0) {
       this.showReqOp = true
     }
   }
+  async reload() {
+    this.loadPreview = !this.loadPreview
 
+  }
+  deleteDOM() {
+    var elementRoaded = document.getElementById('video-preview')
+    if (elementRoaded) {
+      elementRoaded.innerHTML = ""
+    }
+  }
+  addDOM() {
+    var elementRoaded = document.getElementById('video-preview')
+    if (elementRoaded) {
+      elementRoaded.innerHTML = ` <app-preview [videoArray]="mergeData" id="reload-always"></app-preview>`
+    }
+  }
   removeCut(id: any) {
     let index = this.mergeData.findIndex((v: any) => v.id === id)
     this.mergeData.splice(index, 1)
@@ -105,7 +120,6 @@ export class MediaInputComponent implements OnInit {
       this.mergeData[i].beginTime = this.mergeData[i - 1].endTime
       this.mergeData[i].endTime = this.secondsToTime((this.hmsToSecondsOnly(this.mergeData[i].end) - this.hmsToSecondsOnly(this.mergeData[i].start)) + this.hmsToSecondsOnly(this.mergeData[i].beginTime))
     }
-    console.log(this.mergeData)
 
   }
   sendRequest() {
@@ -115,11 +129,11 @@ export class MediaInputComponent implements OnInit {
       videoProcess: [],
       videoRatio: "",
       speedup: false,
+      filter: this.LUTInfo
     }
     var videoRatio = <HTMLSelectElement>document.getElementById('video-ratio')
     var speedup = <HTMLInputElement>document.getElementById('speed-up')
     var xName = <HTMLSelectElement>document.getElementById('extension-name')
-    console.log(videoRatio.value, speedup.checked)
     var length = this.mergeData.length
     let data
     for (var i = 0; i < length; i++) {
@@ -139,41 +153,14 @@ export class MediaInputComponent implements OnInit {
       this.spinnerOpen = false
     })
   }
-
-
-
-  clickToPreview() {
-    var videoPreview = this.mergeData
-    console.log(videoPreview)
-    this.video = <HTMLVideoElement>document.getElementById('preview-video')
-    this.continuousPlayingVideo(videoPreview, 0)
+  getLUT(item: any) {
+    this.LUTInfo = item
+    console.log(this.LUTInfo)
   }
-  continuousPlayingVideo(videoPreview: any, index: number) {
-    if (index >= videoPreview.length)
-      return
 
-    var playVideo = videoPreview[index]
-    console.log(playVideo)
-    this.video.src = this.loadVideo(playVideo)
-    playVideo.start = this.hmsToSecondsOnly(playVideo.start)
-    playVideo.end = this.hmsToSecondsOnly(playVideo.end)
-    this.video.currentTime = playVideo.start
-    this.video.play()
-    this.video.ontimeupdate = () => {
-      if (parseInt(this.video.currentTime) === parseInt(playVideo.end)) {
 
-        this.video.pause()
-        this.continuousPlayingVideo(videoPreview, index + 1)
-      }
 
-    }
-  }
-  loadVideo(video: any) {
-    const file = video.video
-    if (file) {
-      return URL.createObjectURL(file)
-    }
-    return false
-  }
+
+
 }
 

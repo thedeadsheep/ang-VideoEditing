@@ -156,3 +156,13 @@ div.spinner{
     transition: ease-in-out 1s;
   }
 }
+.modal{
+  
+}
+.modal-body{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+.video-preview{
+  padding:5px;
+}

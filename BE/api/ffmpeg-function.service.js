@@ -72,7 +72,7 @@ module.exports = {
         }
         async function changeRatio() {
             try {
-                const { stdout, stderr } = await exec(`ffmpeg -i ${fileInputName} -vf "scale=${frameRatio}:force_original_aspect_ratio=decrease,pad=${frameRatio}:-1:-1:color=black" ${fileOutputName}`);
+                const { stdout, stderr } = await exec(`ffmpeg -y -i ${fileInputName} -vf "scale=${frameRatio}:force_original_aspect_ratio=decrease,pad=${frameRatio}:-1:-1:color=black" ${fileOutputName}`);
 
                 console.log("done", file.editedName)
             } catch (e) {
@@ -95,7 +95,7 @@ module.exports = {
         var fileOutputName = "uploads\\" + sId + "\\" + tempName
         async function speedup() {
             try {
-                const { stdout, stderr } = await exec(`ffmpeg -i ${fileInputName} -filter_complex "[0:v]setpts=0.5*PTS[v];[0:a]atempo=2.0[a]" -map "[v]" -map "[a]" ${fileOutputName}`);
+                const { stdout, stderr } = await exec(`ffmpeg -y -i ${fileInputName} -filter_complex "[0:v]setpts=0.5*PTS[v];[0:a]atempo=2.0[a]" -map "[v]" -map "[a]" ${fileOutputName}`);
 
                 console.log("done", file.editedName)
             } catch (e) {
@@ -103,6 +103,29 @@ module.exports = {
             }
         }
         await speedup();
+        return {
+            originName: file.editedName,
+            editedName: tempName
+        }
+    },
+    addColorFilter: async (file, sId, extensionName, filterData) => {
+        console.log(file)
+        const temp = new ShortUniqueId({ length: 12 })
+        var tempName = await temp()
+        tempName = tempName + "." + extensionName
+        console.log(" inside re-color", file, sId)
+        var fileInputName = "uploads\\" + sId + "\\" + file.editedName
+        var fileOutputName = "uploads\\" + sId + "\\" + tempName
+        async function addLut() {
+            try {
+                const { stdout, stderr } = await exec(`ffmpeg -y -i ${fileInputName} -vf hue=h=${filterData.hue}:s=${filterData.saturate}:b=${filterData.brightness} ${fileOutputName}`);
+
+                console.log("done", file.editedName)
+            } catch (e) {
+                console.error(e); // should contain code (exit code) and signal (that caused the termination).
+            }
+        }
+        await addLut();
         return {
             originName: file.editedName,
             editedName: tempName
