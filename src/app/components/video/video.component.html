@@ -1,4 +1,4 @@
-<div class="grid">
+<div class="wrap">
     <div class="video-wrap">
         <video id="video-played">
             <source src="" type="video/mp4">
@@ -8,13 +8,12 @@
     </div>
     <div class="time-wrapper">
         <div class="time-range" id="time-seek">
-            <span class="current-time">
+            <div class="current-time">
                 {{currentTimeText}}
-            </span>
-            <span>
+            </div>
+            <div class="time-span">
                 <input type="range" id="time-range" [value]="currentTime" (change)="seekTime()">
-            </span>
-
+            </div>
         </div>
         <div class="cut-slider-wrapper" id="cut-slider-wrapper">
             <div class="double-slider">
@@ -55,9 +54,9 @@
         <button (click)="stopVideo()" class="control-btn">
             <i class='fas fa-stop'></i>
         </button>
-        <button (click)="playPause()" class="control-btn">
+        <button (click)="playPause()" class="control-btn" id="play-pause-btn">
             <span>
-                <i class='fas fa-play'></i> &nbsp;/ &nbsp;<i class='fas fa-pause'></i>
+                <i class='fas fa-play'></i>
             </span>
         </button>
 
@@ -72,36 +71,17 @@
                 <i class='fas fa-cut'></i>&nbsp;<i class='fas fa-film'></i>
             </span>
         </button>
-        <button (click)="muteVol()" class="control-btn">
-            <i class='fas fa-volume-mute'></i>
-        </button>
+
         <div class="volumm">
+            <button (click)="muteVol()" class="control-btn" id="mute-btn">
+                <i class='fas fa-volume-up'></i>
+
+            </button>
             <input type="range" class="volumm-range" min=1 max=100 (change)="changeVol()" id="slider-vol"
                 [value]="volValue*100">
-        </div>
-        <!--
-<div class="marking-function">
-    <form [formGroup]="markingPoint" (ngSubmit)="markingLoop(null, null)">
-        <div>
-            <input type="number" id="start-point" formControlName="start">s 
-            <input type="number" id="end-point" formControlName="end">s
-        </div>
-        <div>
-            <button [disabled]="!markingPoint.valid" type="submit">
-                Set Loop Point
-            </button>
-            <button [disabled]="!markingPoint.valid" (click)="createMarkingCutPoint()">
-                Cut this Position
-            </button>
-        </div>
-    </form>
 
-    <button (click)="unMarking()">
-        Unmarking Loop Point
-    </button>
-</div>
-   
-    -->
+        </div>
+
 
 
     </div>

@@ -49,7 +49,16 @@ export class MediaInputComponent implements OnInit {
   sanitize(url: any) {
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
+  isNumber(value: any) {
+    console.log(Number.isInteger(value))
+    if (Number.isInteger(value))
+      return true
+    return false
+  }
   hmsToSecondsOnly(str: any) {
+    if (this.isNumber(str)) {
+      return str
+    }
     var p = str.split(':'),
       s = 0, m = 1;
 

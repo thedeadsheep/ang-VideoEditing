@@ -123,12 +123,18 @@ export class VideoComponent implements OnChanges {
       this.video.src = URL.createObjectURL(file)
     }
   }
+
   playPause() {
+    let element = <HTMLButtonElement>document.getElementById("play-pause-btn")
     if (this.video.paused) {
+
       this.playVideo()
+      element.innerHTML = `<i class='fas fa-pause'></i>`
       return
     }
+
     this.pauseVideo()
+    element.innerHTML = `<i class='fas fa-play'></i>`
   }
   playVideo() {
     this.video.play()
@@ -159,13 +165,17 @@ export class VideoComponent implements OnChanges {
     this.video.currentTime = 0;
   }
   muteVol() {
+    let element = <HTMLButtonElement>document.getElementById("mute-btn")
     if (this.video.volume != 0) {
       this.video.volume = 0
       this.volValue = 0
-    } else {
-      this.video.volume = 1
-      this.volValue = 1
+      element.innerHTML = `<i class='fas fa-volume-mute'></i>`
+      return
     }
+    this.video.volume = 1
+    this.volValue = 1
+    element.innerHTML = `<i class='fas fa-volume-up'></i>`
+
   }
 
   getDuration() {

@@ -1,108 +1,100 @@
 .wrap{
     display: flex;
     flex-direction: column;
-    height: 100%;
     width: auto;
-    padding: 0;
+    padding: 5px;
     margin: 0;
-    background-color: black;
+    height: 100%;
 }
 .dropzone{
-    width: 100%;
+  display: flex;
     position: relative;
-    height: 20%;
+    height: 100px;
     cursor: pointer;
 }
 .dropzone div.imageholder{
-    width: 100%;
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 30px;
-    border: 0.5px rgb(58, 58, 58);
-    border-style: none none dashed none;
+    font-size: 2vw;
+    border: 0.5px rgb(48, 48, 48);
+    border-style: dashed;
+    margin: 0px;
+    border-radius: 10px;
     position: absolute;
+    z-index: 0;
+    height: 100%;
+    width: 100%;
 }
 #drop-text{
-  color: white;
-  text-shadow:  0 0 10px #f1f1f1, 
-                0 0 30px #ffffff;
+  color: #FFEB00;
+  font-weight: 600;
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  
 }
 input.file{
     opacity: 0;
-    height: 100%;
-    width: 100%;
+    height: 100px;
     position: absolute;
     cursor: pointer;
+    margin: 8px;
+    z-index: 10;
 }
 .fileuploaded{
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    height: auto;
-    width: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
+    padding: 10px;
+    margin-top: 10px;
 }
 
 .video-input-item button.video-item{
-    height: auto;
-    width: auto;
-    margin: 3px;
+
+    height: 120px;
+    width:150px;
     overflow: hidden;
-    border-radius: 5px;
-    padding: 2px;
-    background-color: black;
+    background-color: transparent;
     min-width: 100px;
-    color: white;
+    color: #fff7a4;
     letter-spacing: 1px;
     transition: ease-out 0.1s;
     cursor: pointer;
+    border: none;
+    padding: 0;
+    margin: 0;
 }
-.video-input-item:hover {
-  box-shadow: 0 0 10px #bababb, 0 0 40px #bdbdbd, 0 0 20px #535353;
-  transition: ease-in 0.2s
-}
-.video-input-item,
-button.video-item{
-    padding: 0
+.video-item video{
+  height: 75px;
 }
 
 .video-input-item{
-  display: grid;
-  grid-template-columns: 10fr;
-    border-radius: 5px;
-    margin: 3px
+  padding: 5px;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  margin: 0 0 10px 10px;
+  background-color: #0f0622;
+  transition: 0.25s ease-out;
+}
+.video-input-item:hover{
+  border: 1px rgb(134, 134, 134) solid;
+  transition: .25s ease-in;
 }
 .video-name{
   padding: 2px;
-
+  font-size: 1vw;
+  color: white;
 }
 .thumbnail-placeholder{
     width: 100%;
 }
-::-webkit-scrollbar {
-  width: 10px;
-}
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: rgb(255, 185, 185); 
-}
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: rgb(255, 118, 118); 
-}
 .loading{
   display: block;
-  position: absolute;
-  padding: 10px;
   color: white;
   transform: rotate(0deg);
   
@@ -110,8 +102,8 @@ button.video-item{
 .lds-ring {
   display: inline-block;
   position: relative;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
 }
 .lds-ring div {
   box-sizing: border-box;
@@ -120,11 +112,11 @@ button.video-item{
   width: 12px;
   height: 12px;
   margin: 4px;
-  border: 4px solid #fff;
+  border: 4px solid #FFEB00;
   border-radius: 50%;
-  box-shadow: 0 0 4px white, 0 0 8px yellow;
+  box-shadow: 0 0 4px white;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #fff transparent transparent transparent;
+  border-color: #FFEB00 transparent transparent transparent;
 }
 .lds-ring div:nth-child(1) {
   animation-delay: -0.45s;
@@ -142,4 +134,24 @@ button.video-item{
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #353806; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #FFEB00; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #fdeb1f; 
 }

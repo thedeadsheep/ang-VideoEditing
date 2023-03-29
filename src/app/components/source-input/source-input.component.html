@@ -1,27 +1,18 @@
 <div class="wrap">
 
     <div class="dropzone">
-
-        <div class="imageholder">
-            <span id="drop-text">
-                Drop your Video Here
-            </span>
-        </div>
         <input type="file" multiple (change)="fileBrowseHandler($event)" class="file" id="file-input"
             accept="video/mp4,video/x-m4v,video/*">
+        <div class="imageholder">
+            <span id="drop-text">
+                <i class='fas fa-upload'></i> &nbsp; Choose your Video Here
+            </span>
+        </div>
+
 
     </div>
     <div class="fileuploaded">
         <div *ngFor="let video of fileInput" class="video-input-item">
-            <button (click)="transVideo(video)" class="video-item">
-                <video height="100px">
-                    <source [src]="sanitize(video.blobURL)">
-                </video>
-                <div class="video-name">
-                    {{video.name}}
-                </div>
-
-            </button>
             <div class="loading" *ngIf="loadingState">
                 <div class="lds-ring">
                     <div></div>
@@ -30,6 +21,16 @@
                     <div></div>
                 </div>
             </div>
+            <button (click)="transVideo(video)" class="video-item">
+                <video>
+                    <source [src]="sanitize(video.blobURL)">
+                </video>
+                <div class="video-name">
+                    {{video.name}}
+                </div>
+
+            </button>
+
         </div>
     </div>
 

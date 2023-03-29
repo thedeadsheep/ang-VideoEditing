@@ -1,24 +1,40 @@
 .grid{
     padding: 5px;
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 35% 65%;
     height: 100vh;
-    grid-template-rows: 60% 40%;
-    background-color: black;
+    grid-template-rows: 3% 62% 35%;
+    background-color: #222222;
     width: 100%;
 }
 .source-input{
-    border: 0.5px solid white;
-    border-style: solid none solid solid;
-
+    border-radius: 10px;
+   background-color: #150F24;
+   margin: 3px;
+   background: rgba(21, 15, 36, 0.83);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(21, 15, 36, 0.3);
 }
 .media-input{
     grid-column: span 2;
     padding: 2px;
-    border: 0.5px solid white;
-    border-style: none solid solid solid;
+   
+}
+.logo{
+    grid-column: span 2;
+    padding: 2px;
+   color: white;
+    border: solid 1px #FFEB00;
 }
 .player{
-    padding: 2px;
-    border: 0.5px solid white;
+    margin:3px 0;
+    background: rgba(21, 15, 36, 0.83);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(21, 15, 36, 0.3);
 }
