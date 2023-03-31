@@ -216,9 +216,30 @@ div.spinner{
 
 
 .modal-body{
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+  display: flex;
+  flex-direction: column;
+}
+.btn-load-preview{
+  height: 30px;
+  text-align: center;
+  width: 100%;
+  border-radius: 15px;
+  background-color: #EDCD3B;
+  color: #1B365C;
+  border: none;
+}
+.video-optional{
+  display:flex;
+  flex-direction: column;
 }
 .video-preview{
   padding:5px;
+}
+.deactive-status{
+  color: red;
+  font-weight: 600;
+}
+.active-status{
+   color: green;
+  font-weight: 600;
 }

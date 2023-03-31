@@ -164,6 +164,12 @@ export class MediaInputComponent implements OnInit {
   }
   getLUT(item: any) {
     this.LUTInfo = item
+    if (this.LUTInfo) {
+      var status = <HTMLSpanElement>document.getElementById("status")
+      status.innerHTML = "Active"
+      status.classList.add("active-status")
+      status.classList.remove("deactive-status")
+    }
     console.log(this.LUTInfo)
   }
 

@@ -1,26 +1,44 @@
-<div>
-    <video id="preview-video" class="preview-video">
+<div class="wrapper">
+    <div class="video-preview">
+        <video id="preview-video" class="preview-video">
 
-    </video>
-    <button (click)="abc()" class="play-btn">
-        <i class='fas fa-play'></i> Load Preview Video
-    </button>
-</div>
-<div>
-    <div class="filter">
-        <input type="range" id="hue-rotate" min="-180" max="180" value="0" (change)="filterChange()">
-        <P id="hue-value"></P>
-        <input type="range" id="saturate" min="0" max="2" value="1" step="0.2" (change)="filterChange()">
-        <P id="sat-value"></P>
-        <input type="range" id="brightness" min="0" max="2" value="1" step="0.2" (change)="filterChange()">
-        <P id="bright-value"></P>
-    </div>
-    <button (click)="exportFilterInfo()">Emit</button>
-</div>
-<div class="wrap-skip">
-    <div *ngFor="let cut of cutPoint" class="skip-point">
-        <button (click)="check(cut)">
-            {{cut.begin}}
+        </video>
+
+        <button (click)="abc()" class="play-btn">
+            <i class='fas fa-play'></i> Load Preview Video
         </button>
+        <div class="wrap-skip">
+            <div *ngFor="let cut of cutPoint" class="skip-point">
+                <button (click)="check(cut)">
+                    {{cut.num}}
+                </button>
+            </div>
+        </div>
     </div>
+    <div class="filter-wrap">
+        <div class="filter">
+            <div class="range-wraper">
+                <div>
+                    <input type="range" id="hue-rotate" min="-180" max="180" value="0" (change)="filterChange()">
+                </div>
+                <P id="hue-value">Default</P>
+            </div>
+            <div class="range-wraper">
+                <div>
+                    <input type="range" id="saturate" min="0" max="2" value="1" step="0.2" (change)="filterChange()">
+                </div>
+                <P id="sat-value">Default</P>
+            </div>
+            <div class="range-wraper">
+                <div>
+                    <input type="range" id="brightness" min="0" max="2" value="1" step="0.2" (change)="filterChange()">
+                </div>
+                <P id="bright-value">Default</P>
+            </div>
+
+
+        </div>
+        <button (click)="exportFilterInfo()">Emit</button>
+    </div>
+
 </div>
