@@ -15,12 +15,8 @@ export class VideoComponent implements OnChanges {
   currentTimeText: any
   timeDuration: any
   bTS: boolean = false
-  public markingPoint = this.fb.group({
-    start: ['', [Validators.required, Validators.minLength(1)]],
-    end: ['', [Validators.required, Validators.minLength(1)]]
-  })
   constructor(
-    public fb: FormBuilder
+
   ) { }
   ngOnChanges(changes: SimpleChanges): void {
 
@@ -40,7 +36,7 @@ export class VideoComponent implements OnChanges {
   changeTimeSeek() {
     var doubleSlider = <HTMLDivElement>document.getElementById("cut-slider-wrapper")
     var timeSk = <HTMLDivElement>document.getElementById("time-seek")
-    console.log(doubleSlider, timeSk)
+
     if (!this.bTS) {
       doubleSlider.style.display = "block"
       timeSk.style.display = "none"
@@ -113,8 +109,7 @@ export class VideoComponent implements OnChanges {
     this.currentTime = 0
 
 
-    this.markingPoint.value.start = '0';
-    this.markingPoint.value.end = this.video.duration
+
 
   }
   loadVideo() {

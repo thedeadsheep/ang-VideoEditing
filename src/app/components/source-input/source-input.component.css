@@ -40,6 +40,7 @@ input.file{
     cursor: pointer;
     margin: 8px;
     z-index: 10;
+    width: 100%;
 }
 .fileuploaded{
     display: flex;

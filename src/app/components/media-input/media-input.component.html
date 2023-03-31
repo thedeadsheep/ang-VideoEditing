@@ -3,16 +3,27 @@
         <div *ngFor="let data of arrayOfCutVideo" class="cut-point">
             <button class="btn-cut-video">
                 <div class="info-wrap" (click)="addVideoToRenderArray(data.id)">
-                    <video height="50px">
-                        <source [src]="sanitizeTime(data)">
-                    </video>
-                    <div class="metadata">
+                    <div class="video-tab">
+                        <video height="55px">
+                            <source [src]="sanitizeTime(data)">
+                        </video>
                         <p>
                             {{data.video.name}}
                         </p>
-                        <span>
-                            {{data.start}} <i class='fas fa-arrow-right'></i> {{ data.end}}
-                        </span>
+                    </div>
+                    <div class="metadata">
+                        <p class="letter">
+                            From:
+                        </p>
+                        <p class="time">
+                            {{data.start}}
+                        </p>
+                        <p class="letter">
+                            To:
+                        </p>
+                        <p class="time">
+                            {{ data.end}}
+                        </p>
                     </div>
                 </div>
                 <div class="delete-btn" (click)="deleteMarking(data.id)">
@@ -26,18 +37,26 @@
         <div *ngFor="let cut of mergeData" (click)="removeCut(cut.id)" class="div-cut">
             <div class="wrap">
                 <div>
-                    <video height="50px">
+                    <video height="65px">
                         <source [src]="sanitize(cut.video.blob)">
                     </video>
                 </div>
-                <div>
-                    {{cut.video.name}}
+                <div class="name">
+                    <div>
+                        {{cut.video.name}}
+                    </div>
                 </div>
-                <div>
-                    ({{cut.start}}, {{cut.end}})
+                <div class="duration">
+                    ({{cut.start}} : {{cut.end}})
                 </div>
-                <div>
-                    {{cut.beginTime}} ----- {{cut.endTime}}
+
+                <div class="time-span">
+                    <div>
+                        {{cut.beginTime}}
+                    </div>
+                    <div>
+                        {{cut.endTime}}
+                    </div>
                 </div>
             </div>
 
@@ -47,7 +66,7 @@
 
 </div>
 <button class="float" data-bs-toggle="modal" data-bs-target="#myModal" *ngIf="showReqOp">
-    Request Optinon
+    <i class='fas fa-cogs'></i>
 </button>
 
 <div class="spinner" *ngIf="spinnerOpen">
