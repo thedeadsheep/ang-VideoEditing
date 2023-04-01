@@ -13,7 +13,6 @@ div.wrap{
   border-radius: 15px;
     width: 100%;
 }
-
 #video-played{
   width: 95%;
   max-height: 380px;
@@ -36,7 +35,6 @@ div.time-range{
     overflow: hidden;
   border-radius: 10px;
   margin-left: 5px;
-  
    transition: ease-in 0.5s;
    width: 100%;
 }
@@ -66,7 +64,6 @@ div.time-range{
 #time-range::-webkit-slider-thumb {
     -webkit-appearance: none;
     box-shadow: -2000px 0 0 2000px #FFEB00
-
 }
 div.current-time{
   display: flex;
@@ -121,14 +118,12 @@ div.current-time{
 .volumm-range::-webkit-slider-thumb {
     -webkit-appearance: none;
     box-shadow: -2000px 0 0 2000px #FFEB00
-
 }
 div.volumm{
     display: flex;
     justify-items: center;
     align-items: center;
 }
-
 .video-controller{
     display: flex;
     justify-content: center;
@@ -183,9 +178,6 @@ transition: ease-in 0.2s;
     border-radius: 25px;
  border: 1px solid transparent;
 }
-
-.control-btn:nth-child(2){
-}
 .control-btn:hover{
   border: none;
   background-color: #FFEB00;
@@ -212,7 +204,6 @@ transition: ease-in 0.2s;
     color:  white;
     border: 1px solid #fff7a4;
     background-color: black;
-    
   transition: .5s ease-out ;
 }
 .inputTime:hover{
@@ -229,18 +220,15 @@ transition: ease-in 0.2s;
   height: 30px;
   padding-top: 15px;
 }
-
 .sliders_control {
   position: relative;
 }
-
 .form_control {
   position: relative;
   display: flex;
   justify-content: space-between;
   color: #635a5a;
 }
-
 .cut-slider-wrapper input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   pointer-events: all;
@@ -251,7 +239,6 @@ transition: ease-in 0.2s;
   border-radius: 50%;
   cursor: pointer;
 }
-
 .cut-slider-wrapper input[type=range]::-moz-range-thumb {
   -webkit-appearance: none;
   pointer-events: all;
@@ -261,11 +248,9 @@ transition: ease-in 0.2s;
   border-radius: 50%;
   cursor: pointer;  
 }
-
 .cut-slider-wrapper input[type=range]::-webkit-slider-thumb:hover {
   background: #f7f7f7;
 }
-
 .cut-slider-wrapper input[type=range]::-webkit-slider-thumb:active {
   box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe;
 }
@@ -278,12 +263,10 @@ transition: ease-in 0.2s;
   background-color: #C6C6C6;
   pointer-events:none;
 }
-
 #fromSlider {
   height: 0;
   z-index: 1;
 }
-
 .time-wrapper{
   display: flex;
   margin-top: 5px;
