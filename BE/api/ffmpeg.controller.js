@@ -11,7 +11,7 @@ module.exports = {
         console.log(renderReq)
         var sId = renderReq.sessionID
         var files = renderReq.videoProcess
-        var frameRatio = renderReq.videoRatio
+        var frameRatio = renderReq.videoRatio.resolu
         var extensionName = renderReq.extensionName
         console.log(extensionName)
 

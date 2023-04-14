@@ -31,14 +31,9 @@ module.exports = {
         var tempName = await temp()
         var fileNameNo1 = "uploads\\" + sId + "\\" + fileNo1.editedName
         var fileNameNo2 = "uploads\\" + sId + "\\" + fileNo2.editedName
-        var frameRatio
+        var frameRatio = frame
         console.log(frame)
         console.log(frame == 'landscape')
-        if (frame === "landscape") {
-            frameRatio = "1280:720"
-        } else {
-            frameRatio = "720:1280"
-        }
         tempName = tempName + "." + extensionName
         var fileOutputName = "uploads\\" + sId + "\\" + tempName
         async function lsExample() {
@@ -64,12 +59,7 @@ module.exports = {
         console.log(" inside speedup", file, sId)
         var fileInputName = "uploads\\" + sId + "\\" + file.editedName
         var fileOutputName = "uploads\\" + sId + "\\" + tempName
-        var frameRatio
-        if (frame === "landscape") {
-            frameRatio = "1280:720"
-        } else {
-            frameRatio = "720:1280"
-        }
+        var frameRatio = frame
         async function changeRatio() {
             try {
                 const { stdout, stderr } = await exec(`ffmpeg -y -i ${fileInputName} -vf "scale=${frameRatio}:force_original_aspect_ratio=decrease,pad=${frameRatio}:-1:-1:color=black" ${fileOutputName}`);

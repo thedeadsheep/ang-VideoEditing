@@ -109,7 +109,14 @@
                             <option value="landscape" selected>Landscape</option>
                         </select>
                     </span>
-
+                    <span>
+                        Resolution
+                        <select class="form-select" id="video-resolution">
+                            <option value="720" selected>720P</option>
+                            <option value="480">480P</option>
+                            <option value="360">360P</option>
+                        </select>
+                    </span>
                     <span>
                         SpeedUp: 2x <input type="checkbox" id="speed-up" name="2xSpeedUp" value="SpeedUp">
                     </span>
@@ -122,7 +129,8 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" (click)="sendRequest()">Send Request</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="sendRequest()">Send
+                    Request</button>
             </div>
 
         </div>

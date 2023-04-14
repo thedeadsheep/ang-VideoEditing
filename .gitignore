@@ -12,6 +12,8 @@
 npm-debug.log
 yarn-error.log
 /BE/node_modules
+/cloud/.env
+/cloud/node_modules
 # IDEs and editors
 .idea/
 .project

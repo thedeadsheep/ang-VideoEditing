@@ -50,7 +50,6 @@ export class MediaInputComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
   isNumber(value: any) {
-    console.log(Number.isInteger(value))
     if (Number.isInteger(value))
       return true
     return false
@@ -99,20 +98,8 @@ export class MediaInputComponent implements OnInit {
   }
   async reload() {
     this.loadPreview = !this.loadPreview
+  }
 
-  }
-  deleteDOM() {
-    var elementRoaded = document.getElementById('video-preview')
-    if (elementRoaded) {
-      elementRoaded.innerHTML = ""
-    }
-  }
-  addDOM() {
-    var elementRoaded = document.getElementById('video-preview')
-    if (elementRoaded) {
-      elementRoaded.innerHTML = ` <app-preview [videoArray]="mergeData" id="reload-always"></app-preview>`
-    }
-  }
   removeCut(id: any) {
     let index = this.mergeData.findIndex((v: any) => v.id === id)
     this.mergeData.splice(index, 1)
@@ -129,18 +116,42 @@ export class MediaInputComponent implements OnInit {
       this.mergeData[i].beginTime = this.mergeData[i - 1].endTime
       this.mergeData[i].endTime = this.secondsToTime((this.hmsToSecondsOnly(this.mergeData[i].end) - this.hmsToSecondsOnly(this.mergeData[i].start)) + this.hmsToSecondsOnly(this.mergeData[i].beginTime))
     }
-
+  }
+  getVideoOutput() {
+    var videoRatio = <HTMLSelectElement>document.getElementById('video-ratio')
+    var videoResolu = <HTMLSelectElement>document.getElementById('video-resolution')
+    var returnData = {
+      ratio: videoRatio.value,
+      resolu: ""
+    }
+    var height;
+    if (videoResolu.value == "720") {
+      height = "1280"
+    }
+    if (videoResolu.value == "480") {
+      height = "854"
+    }
+    if (videoResolu.value == "360") {
+      height = "640"
+    }
+    if (videoRatio.value === "landscape") {
+      returnData.resolu = height + ":" + videoResolu.value
+    }
+    if (videoRatio.value === "portrait") {
+      returnData.resolu = videoResolu.value + ":" + height
+    }
+    return returnData
   }
   sendRequest() {
     this.spinnerOpen = true
     var requestData: any = {
       sessionID: localStorage.getItem("sessionID"),
       videoProcess: [],
-      videoRatio: "",
+      videoRatio: this.getVideoOutput(),
       speedup: false,
       filter: this.LUTInfo
     }
-    var videoRatio = <HTMLSelectElement>document.getElementById('video-ratio')
+
     var speedup = <HTMLInputElement>document.getElementById('speed-up')
     var xName = <HTMLSelectElement>document.getElementById('extension-name')
     var length = this.mergeData.length
@@ -153,9 +164,12 @@ export class MediaInputComponent implements OnInit {
       }
       requestData.videoProcess.push(data)
     }
-    requestData.videoRatio = videoRatio.value
     requestData.speedup = speedup.checked
     requestData.extensionName = xName.value
+    console.log(requestData)
+    if (this.loadPreview) {
+      this.reload()
+    }
     this.renderService.renderRequest(requestData).subscribe((data: Blob | MediaSource) => {
       let downloadURL = window.URL.createObjectURL(data)
       saveAs(downloadURL)
@@ -170,7 +184,6 @@ export class MediaInputComponent implements OnInit {
       status.classList.add("active-status")
       status.classList.remove("deactive-status")
     }
-    console.log(this.LUTInfo)
   }
 
 
