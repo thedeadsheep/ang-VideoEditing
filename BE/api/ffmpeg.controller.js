@@ -1,7 +1,8 @@
 
 const {
-    trimVideo, trim, merge, speedUpVideo, changeFrameSingleVideo, addColorFilter
+    trim, merge, speedUpVideo, changeFrameSingleVideo, addColorFilter
 } = require("./ffmpeg-function.service")
+const { uploadToCloud } = require('./mail.service')
 const path = require('path')
 
 module.exports = {
@@ -48,6 +49,12 @@ module.exports = {
             finalFile = await addColorFilter(finalFile, sId, extensionName, renderReq.filter)
         }
         sendFile = "uploads\\" + sId + "\\" + finalFile.editedName
+        if (renderReq.email) {
+            var kqReturn = await uploadToCloud(sendFile, renderReq.email)
+            res.send({
+                message: "Please Check Your Mail!"
+            })
+        }
         res.download(sendFile)
     },
 

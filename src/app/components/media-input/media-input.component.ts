@@ -142,6 +142,20 @@ export class MediaInputComponent implements OnInit {
     }
     return returnData
   }
+  checkEmail() {
+    console.log("dasdasd")
+    var cbElement = <HTMLInputElement>document.getElementById("email-checkbox")
+    var inputElement = <HTMLInputElement>document.getElementById("email-input")
+
+    console.log(cbElement.checked)
+
+    if (!cbElement.checked) {
+      inputElement.style.display = 'none'
+      return
+    }
+    inputElement.style.display = 'block'
+  }
+
   sendRequest() {
     this.spinnerOpen = true
     var requestData: any = {
@@ -149,11 +163,12 @@ export class MediaInputComponent implements OnInit {
       videoProcess: [],
       videoRatio: this.getVideoOutput(),
       speedup: false,
-      filter: this.LUTInfo
+      filter: this.LUTInfo,
     }
 
     var speedup = <HTMLInputElement>document.getElementById('speed-up')
     var xName = <HTMLSelectElement>document.getElementById('extension-name')
+    var emailValue = <HTMLInputElement>document.getElementById('email-input')
     var length = this.mergeData.length
     let data
     for (var i = 0; i < length; i++) {
@@ -166,11 +181,15 @@ export class MediaInputComponent implements OnInit {
     }
     requestData.speedup = speedup.checked
     requestData.extensionName = xName.value
+    if (emailValue.value != "") {
+      requestData.email = emailValue.value
+    }
     console.log(requestData)
     if (this.loadPreview) {
       this.reload()
     }
     this.renderService.renderRequest(requestData).subscribe((data: Blob | MediaSource) => {
+      console.log(data)
       let downloadURL = window.URL.createObjectURL(data)
       saveAs(downloadURL)
       this.spinnerOpen = false

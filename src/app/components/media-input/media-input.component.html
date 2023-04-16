@@ -70,7 +70,9 @@
 </button>
 
 <div class="spinner" *ngIf="spinnerOpen">
-
+    <div>
+        if You Check To Send to Mail, you can close this tab and waiting our email
+    </div>
 </div>
 
 
@@ -122,6 +124,10 @@
                     </span>
                     <span>
                         LutActive: <span id="status" class="deactive-status">Deactive</span>
+                    </span>
+                    <span>
+                        Send to your Email? <input type="checkbox" id="email-checkbox" (change)="checkEmail()">
+                        <input type="email" id="email-input" class="mail-input">
                     </span>
                 </div>
 

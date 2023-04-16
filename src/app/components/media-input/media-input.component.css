@@ -161,33 +161,23 @@ border-radius: 16px;
 }
 div.spinner{
   position: fixed;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color:white;
+  font-size: 2vw;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 17, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.562);
   z-index: 99;
   cursor: pointer;
-  animation: colo-change 2s infinite;
   transition: ease-in-out 4s;
 }
-@keyframes colo-change {
-  0%{
-    transition: ease-in-out 1s;
-  }
-  25%{
-    transition: ease-in-out 1s;
-  }
-  50%{
-    transition: ease-in-out 1s;
-  }
-  75%{
-    transition: ease-in-out 1s;
-  }
-}
+
 
 .time-span{
   display: flex;
@@ -242,4 +232,8 @@ div.spinner{
 .active-status{
    color: green;
   font-weight: 600;
+}
+.mail-input{
+  display: none;
+  width: 75px;
 }
