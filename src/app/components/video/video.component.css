@@ -133,6 +133,11 @@ div.volumm{
     padding: 2px;
     margin-top: 10px;
 }
+@media only screen and (max-width: 770px) {
+   .video-controller{
+    flex-wrap: wrap;
+}
+}
 .function-wrap{
   display: flex;
   justify-content: center;

@@ -1,20 +1,41 @@
 <div class="grid">
     <div class="logo">
         Logo
+
     </div>
-    <div class="source-input">
+    <div class="source-input" id="source-input">
         <app-source-input (videoFiles)="getVideo($event)">
 
         </app-source-input>
     </div>
-    <div class="player">
+    <div class="player" id="player">
         <app-video [videoLoad]="videoFile" (cutMark)="getCutPointOfViedeo($event)">
 
         </app-video>
     </div>
-    <div class="media-input">
+    <div class="media-input" id="media-input">
         <app-media-input [arrayOfCutVideo]="renderVideoData">
 
         </app-media-input>
+    </div>
+</div>
+<div>
+    <div class="floating-scroll" *ngIf="autoScroll">
+        <a class="scroll-btn" href="#source-input">
+            <i class='fas fa-cloud-upload-alt'></i>
+        </a>
+
+        <a class="scroll-btn" href="#player">
+            <i class='fas fa-video'></i>
+        </a>
+
+        <a class="scroll-btn" href="#media-input">
+            <i class='fas fa-list'></i>
+        </a>
+
+        <button class="scroll-btn" (click)="scrollToEnd()">
+            <i class='fas fa-file-export'></i>
+        </button>
+
     </div>
 </div>

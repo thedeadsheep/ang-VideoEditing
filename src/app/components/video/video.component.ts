@@ -1,5 +1,4 @@
 import { Component, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms'
 import { UUID } from 'angular2-uuid';
 @Component({
   selector: 'app-video',
@@ -9,6 +8,8 @@ import { UUID } from 'angular2-uuid';
 export class VideoComponent implements OnChanges {
   @Input() videoLoad: any
   @Output() cutMark: any = new EventEmitter<object>()
+
+  autoScroll: boolean = false
   video: any
   volValue: any
   currentTime: any
@@ -21,9 +22,7 @@ export class VideoComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
 
     this.defaultState()
-
     this.loadVideo()
-
     this.getPlayedTime();
     this.cutSlider()
 
@@ -53,14 +52,13 @@ export class VideoComponent implements OnChanges {
 
     var lowerInput = <HTMLInputElement>document.getElementById('fromInput')
     var upperInput = <HTMLInputElement>document.getElementById('toInput')
-
     var lowerVal = 0
     lowerSlider.value = lowerVal.toString()
-    var upperVal = this.video.duration
+    var upperVal = lowerVal + 1
     upperSlider.value = upperVal.toString()
 
-    lowerInput.value = lowerVal.toString()
-    upperInput.value = upperVal.toString()
+    lowerInput.value = this.secondsToTime(lowerVal.toString())
+    upperInput.value = this.secondsToTime(upperVal.toString())
     upperSlider.oninput = () => {
       lowerVal = parseInt(lowerSlider.value);
       upperVal = parseInt(upperSlider.value);
