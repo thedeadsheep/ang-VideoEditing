@@ -9,9 +9,7 @@ export let browserRefresh = false;
 export class AppComponent {
 
   constructor() {
-    if (confirm('Successful Message')) {
-      localStorage.clear()
-    }
+    localStorage.clear()
   };
 
   title = 'video-app';
