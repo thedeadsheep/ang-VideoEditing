@@ -46,4 +46,30 @@ module.exports = {
             })
         return `done`
     },
+    mailer: (reciveEmail, content) => {
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.EMAIL_PASSWORD
+            }
+        });
+
+        var mailOptions = {
+            from: `VideoRender <noreply.${process.env.EMAIL}>`,
+            to: reciveEmail,
+            subject: 'Your password',
+            text: `${content}`,
+            replyTo: `noreply.${process.env.EMAIL}`
+        };
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error)
+                return false
+            }
+            console.log('Email sent: ' + info.response);
+        });
+
+        return true
+    }
 }
