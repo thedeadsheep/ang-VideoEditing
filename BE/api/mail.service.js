@@ -46,7 +46,7 @@ module.exports = {
             })
         return `done`
     },
-    mailer: (reciveEmail, content) => {
+    mailer: (reciveEmail, content, title) => {
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -58,7 +58,7 @@ module.exports = {
         var mailOptions = {
             from: `VideoRender <noreply.${process.env.EMAIL}>`,
             to: reciveEmail,
-            subject: 'Your password',
+            subject: title,
             text: `${content}`,
             replyTo: `noreply.${process.env.EMAIL}`
         };

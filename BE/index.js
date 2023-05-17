@@ -1,6 +1,6 @@
 const { renderVideo } = require("./api/ffmpeg.controller")
 const { createSessionId, deleteCache, } = require("./api/server.service")
-const { userRegister, getPassword } = require('./api/database.controller')
+const { userRegister, getPassword, login, confirmUser } = require('./api/database.controller')
 const express = require('express')
 
 
@@ -23,9 +23,10 @@ app.use(cors())
 
 
 app.post('/renderVideo', renderVideo);
-
+app.get('/confirmUser', confirmUser);
 app.get('/newUser', userRegister);
 app.get('/getOTP', getPassword);
+app.post('/login', login);
 
 app.post('/multiple/:sId', async (req, res) => {
   let sessionId = req.params.sId
