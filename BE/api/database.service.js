@@ -62,6 +62,57 @@ module.exports = {
                 return callBack(null, results[0])
             }
         )
+    },
+    newSection: (data, callBack) => {
+        pool.query(
+            `Insert into project_data (email, video_id, project_name, video_status, video_link)
+                values(?, ?, ?, ?, ?)`,
+            [
+                data.email,
+                data.videoSection,
+                data.projectName,
+                false,
+                null
+            ],
+            (error, result, field) => {
+                if (error) {
+                    return callBack(error)
+                }
+                return callBack(null, result)
+            }
+        )
+    },
+    updateSection: (data, callBack) => {
+        pool.query(
+            `UPDATE project_data SET video_status = ?, video_link = ? 
+            where (email = ? and video_id = ?)`,
+            [
+                true,
+                data.video_link,
+                data.email,
+                data.videoSection
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    console.log(error)
+                    return callBack(error)
+                }
+                console.log(results)
+                return callBack(null, results[0])
+            }
+        )
+    },
+    getVideoData: (data, callBack) => {
+        pool.query(
+            `SELECT video_id, project_name, video_status, video_link FROM project_data WHERE email = ?`,
+            [
+                data
+            ],
+            (error, results, field) => {
+                if (error) return callBack(error)
+                return callBack(null, results[0])
+            }
+        )
     }
 
 }
