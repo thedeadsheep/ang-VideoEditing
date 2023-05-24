@@ -1,19 +1,31 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
+import { IDeactivateComponent } from 'src/app/services/deactive-guard.service';
+
 @Component({
   selector: 'app-grid-app',
   templateUrl: './grid-app.component.html',
-  styleUrls: ['./grid-app.component.css']
+  styleUrls: ['./grid-app.component.css'],
+  animations: [
+
+  ]
 })
-export class GridAppComponent implements OnInit {
+export class GridAppComponent implements OnInit, IDeactivateComponent {
   public browserRefresh: boolean = false;
   public autoScroll: boolean = false;
 
   constructor() {
-
   }
   videoFile: any
   renderVideoData: any = []
 
+
+  canExit() {
+    if (this.renderVideoData) {
+      return confirm('Are U sure to Exit This Project?')
+    } else {
+      return true
+    }
+  }
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
 
@@ -24,7 +36,10 @@ export class GridAppComponent implements OnInit {
       this.autoScroll = false
     }
   }
-
+  ngOnDestroy(): void {
+    console.log('detroy')
+    localStorage.clear()
+  }
   ngOnInit(): void {
     if (window.innerWidth < 770) {
 

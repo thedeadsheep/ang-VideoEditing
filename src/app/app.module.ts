@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -15,6 +16,8 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+
+import { CanDeactivateGaurdService } from './services/deactive-guard.service'
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,9 +35,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [CanDeactivateGaurdService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

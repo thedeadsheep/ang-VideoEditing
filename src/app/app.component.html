@@ -1,3 +1,36 @@
-<router-outlet>
+<nav>
+    <ul>
+        <li class="logo">
+            Logo
+        </li>
+        <li class="item">
+            <a routerLink="/homepage" routerLinkActive="active" ariaCurrentWhenActive="page">Home</a>
+        </li>
+        <li class="item">
+            <a routerLink="/editapplication" routerLinkActive="active" ariaCurrentWhenActive="page">Video Edit
+                App</a>
+        </li>
+    </ul>
+    <ul>
+        <div class="non-login">
+            <li class="item">
+                <a>Login</a>
+            </li>
+            <li class="item">
+                <a>Sign In</a>
+            </li>
+        </div>
+        <div class="login">
+            <li class="avatar">
+                <div class="nickname-image">
+                    A
+                </div>
+            </li>
+        </div>
 
-</router-outlet>
+    </ul>
+</nav>
+
+<main role="main" [@fadeAnimation]="outlet.isActivated ? outlet.activatedRoute : ''">
+    <router-outlet #outlet="outlet"></router-outlet>
+</main>

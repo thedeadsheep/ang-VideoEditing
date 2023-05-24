@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: 35% 65%;
     height: 100vh;
-    grid-template-rows: 3% 62% 35%;
+    grid-template-rows: 65% 35%;
     background-color: #222222;
     width: 100%;
 }
@@ -24,12 +24,7 @@ border: 1px solid rgba(21, 15, 36, 0.3);
     padding: 2px;
    
 }
-.logo{
-    grid-column: span 2;
-    padding: 2px;
-   color: white;
-    border: solid 1px #FFEB00;
-}
+
 .player{
     margin:3px 0;
     padding: 1px;
