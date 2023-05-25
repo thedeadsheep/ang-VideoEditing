@@ -1,1 +1,29 @@
-<p>login works!</p>
+<div class="wrap">
+    <div class="inside-wrap">
+        <div class="input-email-state" id="input-email-state" [@modalState]="isShow">
+            <label for="email">Email</label>
+            <input class="email" type="email" id="emai" />
+            <div class="btn">
+                <button id="input-state" (click)="getPassword()">
+                    Get Password
+                </button>
+            </div>
+        </div>
+
+        <div class="input-password-state" id="login-state" [@modalState]="!isShow">
+
+            <label for="email">Password <p>
+                    Check your Email to get Password
+                </p></label>
+            <input class="password" type="password" />
+            <div class="btn">
+                <button id="input-state" (click)="login()">
+                    Login
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

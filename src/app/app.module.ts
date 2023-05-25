@@ -17,7 +17,8 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
-import { CanDeactivateGaurdService } from './services/deactive-guard.service'
+import { CanDeactivateGaurdService } from './services/deactive-guard.service';
+import { SignInComponent } from './components/sign-in/sign-in.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +31,7 @@ import { CanDeactivateGaurdService } from './services/deactive-guard.service'
     PagenotfoundComponent,
     LoginComponent,
     DashboardComponent,
+    SignInComponent,
   ],
   imports: [
     BrowserModule,

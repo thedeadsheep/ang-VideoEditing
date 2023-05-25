@@ -1,0 +1,79 @@
+.wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    width: 100vw;
+   
+}
+.inside-wrap{
+    width: 80vw;
+    max-width: 700px;
+    padding: 5vw;
+    /* From https://css.glass */
+background: rgba(255, 255, 255, 0.19);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(9.6px);
+-webkit-backdrop-filter: blur(9.6px);
+
+}
+
+
+div.btn{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    border: none;
+    cursor:default;
+}
+div.btn:focus{
+    outline: none;
+}
+p{
+    font-size: 10px;
+    color: red;
+    letter-spacing: 2px;
+    word-spacing: 3px;
+    padding: 0;
+    margin: 0;
+    font-weight: 500;
+}
+label{
+    margin-bottom: 10px ;
+    height: 45px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+input{
+    width: 100%;
+    margin-bottom:20px ;
+    height: 45px;
+    border-radius: 15px;
+    padding: 0 20px;
+    font-size: large;
+    font-weight: 500;
+    letter-spacing: 2px;
+
+}
+button#input-state{
+    width: 18vw;
+    height: 45px;
+    font-size: 15px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    border-radius: 20px;
+    border: none;
+    background-color: yellow;
+    color: black;
+    transition: all 0.5s ease-out;
+}
+button#input-state:hover{
+    background-color: black;
+    color: yellow;
+}

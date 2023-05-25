@@ -20,7 +20,7 @@ export class GridAppComponent implements OnInit, IDeactivateComponent {
 
 
   canExit() {
-    if (this.renderVideoData) {
+    if (this.videoFile) {
       return confirm('Are U sure to Exit This Project?')
     } else {
       return true
