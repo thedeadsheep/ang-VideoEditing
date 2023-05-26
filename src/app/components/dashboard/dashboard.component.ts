@@ -8,7 +8,25 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
 
   constructor() { }
-
+  sampleData: any = [
+    {
+      video_id: 'asdas',
+      projectName: 'asdassadsa',
+      status: 'onpending',
+      video_link: 'none'
+    },
+    {
+      video_id: 'asdas',
+      projectName: 'asdassadsa',
+      status: 'done',
+      video_link: 'none'
+    }, {
+      video_id: 'asdas',
+      projectName: 'asdassadsa',
+      status: 'error',
+      video_link: 'none'
+    }
+  ]
   ngOnInit(): void {
   }
 

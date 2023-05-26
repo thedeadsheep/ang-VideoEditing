@@ -113,6 +113,19 @@ module.exports = {
                 return callBack(null, results[0])
             }
         )
+    },
+    deleteVideoData: (data, callBack) => {
+        console.log(data)
+        pool.query(
+            `DELETE FROM project_data WHERE video_id = ?`,
+            [
+                data.video_id
+            ],
+            (error, result, field) => {
+                if (error) return callBack(error)
+                return callBack(null, result)
+            }
+        )
     }
 
 }

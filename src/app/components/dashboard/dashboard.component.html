@@ -1,1 +1,32 @@
-<p>dashboard works!</p>
+<div class="wrap">
+    <table style="width: 100%">
+        <tr>
+            <th>
+                Video Id
+            </th>
+            <th>
+                Project Name
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Video Link
+            </th>
+        <tr *ngFor="let item of sampleData">
+            <td>
+                {{item.video_id}}
+            </td>
+            <td>
+                {{item.projectName}}
+            </td>
+            <td>
+                {{item.status}}
+            </td>
+            <td>
+                {{item.video_link}}
+            </td>
+        </tr>
+
+    </table>
+</div>

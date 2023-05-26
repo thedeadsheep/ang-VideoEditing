@@ -2,7 +2,8 @@ const {
     createUser,
     updateColumn,
     getPassword,
-    getValue
+    getValue,
+    deleteVideoData
 } = require('./database.service')
 
 const host = 'http://localhost:3000/'
@@ -129,24 +130,43 @@ module.exports = {
                 message: "Invalid token"
             })
         }
-        updateColumn({ column: 'confirmEmail', email: email, changeValue: 'done' }, (error, result) => {
+        updateColumn({ column: 'confirmEmail', email: email, changeValue: 'done' },
+            (error, result) => {
 
-            console.log("inUpdatecol")
-            if (error) {
+                console.log("inUpdatecol")
+                if (error) {
 
 
-                console.log("error")
-                return res.status(500).json({
-                    success: 0,
-                    message: "Database connection error"
+                    console.log("error")
+                    return res.status(500).json({
+                        success: 0,
+                        message: "Database connection error"
+                    })
+                }
+
+                console.log("done")
+                return res.status(200).json({
+                    success: 1,
+                    message: "email confirmed"
                 })
-            }
-
-            console.log("done")
-            return res.status(200).json({
-                success: 1,
-                message: "email confirmed"
             })
-        })
+    },
+    deleteVideoById: (req, res) => {
+        const body = req.query.video_id
+        console.log(body)
+
+        deleteVideoData({ video_id: body },
+            (error, result) => {
+                if (error) {
+                    return res.status(500).json({
+                        success: 0,
+                        message: "Database connection error"
+                    })
+                }
+                return res.status(200).json({
+                    success: 1,
+                    message: "Delete Done"
+                })
+            })
     }
 }

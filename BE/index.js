@@ -1,6 +1,6 @@
 const { renderVideo } = require("./api/ffmpeg.controller")
 const { createSessionId, deleteCache, } = require("./api/server.service")
-const { userRegister, getPassword, login, confirmUser } = require('./api/database.controller')
+const { userRegister, getPassword, login, confirmUser, deleteVideoById } = require('./api/database.controller')
 const express = require('express')
 
 
@@ -21,7 +21,7 @@ app.use(bodyparser.json())
 
 app.use(cors())
 
-
+app.delete('/deleteVideoData', deleteVideoById);
 app.post('/renderVideo', renderVideo);
 app.get('/confirmUser', confirmUser);
 app.get('/newUser', userRegister);
