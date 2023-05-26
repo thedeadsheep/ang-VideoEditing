@@ -1,1 +1,22 @@
-<p>sign-in works!</p>
+<div class="wrap" *ngIf="isLoad">
+    <div class="inside-wrap">
+        <div class="sign-In" id="sign-In" [@modalState]="isShow">
+            <label for="email">Email</label>
+            <input class="email" type="email" id="email" />
+            <label for="nickname">Nickname</label>
+            <input class="nickname" type="text" id="nickname" />
+            <div class="btn">
+                <button id="sign-in" (click)="signIn()">
+                    Sign In
+                </button>
+            </div>
+        </div>
+        <div class="check-email" [@modalState]="!isShow">
+            <p>
+                Plese check your email to confirm your account <br>
+                We will re-direct to homepage in now, or <a>click here</a>
+            </p>
+        </div>
+    </div>
+
+</div>

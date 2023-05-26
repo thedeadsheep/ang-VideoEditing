@@ -4,6 +4,9 @@ nav{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    width: 100vw;
+    top:0;
+    left: 0;
     background-color: yellow;
     padding: 5px 3px;
     z-index: 50;
@@ -28,9 +31,9 @@ ul{
     justify-content: center;
     height: 30px;
     width: 30px;
-    font-weight: 700;
-    font-size: 20px;
-    color: yellow;
+    font-weight: 600;
+    font-size: 18px;
+    color: white;
     background-color: black;
     border-radius: 50%;
 }
@@ -60,4 +63,7 @@ li{
     transition: .25s ease;
     cursor: pointer;
     padding: 10px;
+}
+.avatar{
+    cursor: pointer;
 }

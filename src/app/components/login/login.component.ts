@@ -1,4 +1,4 @@
-import { animate, sequence, state, style, transition, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 
 
@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
 
   constructor() { }
   isShow: boolean = true
+  show: string = 'none'
   ngOnInit(): void {
   }
 
