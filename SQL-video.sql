@@ -28,6 +28,7 @@ CREATE TABLE `project_data` (
   `project_name` varchar(255) DEFAULT NULL,
   `video_status` tinyint(1) DEFAULT NULL,
   `video_link` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`video_id`),
   KEY `email` (`email`),
   CONSTRAINT `project_data_ibfk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -46,7 +47,7 @@ CREATE TABLE `users` (
   `otp` varchar(255) DEFAULT NULL,
   `token` varchar(255) DEFAULT NULL,
   `expiredDate` date DEFAULT NULL,
-  `confirmEmail` tinyint(1) DEFAULT NULL,
+  `confirmEmail` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -60,4 +61,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-12 22:11:52
+-- Dump completed on 2023-05-26 13:12:18
