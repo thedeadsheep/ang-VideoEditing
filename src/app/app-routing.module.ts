@@ -7,11 +7,12 @@ import { GridAppComponent } from './components/grid-app/grid-app.component';
 import { CanDeactivateGaurdService } from './services/deactive-guard.service'
 import { LoginComponent } from './components/login/login.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
+import { AuthGuardService } from './services/canactive-guard.service';
 
 const routes: Routes = [
   { path: 'homepage', component: HomepageComponent, data: { animation: 'HomePage' } },
-  { path: 'dashboard', component: DashboardComponent, data: { animation: 'DashBoard' } },
-  { path: 'editapplication', component: GridAppComponent, data: { animation: 'AppEditor' }, canDeactivate: [CanDeactivateGaurdService] },
+  { path: 'dashboard', component: DashboardComponent, data: { animation: 'DashBoard' }, canActivate: [AuthGuardService] },
+  { path: 'editapplication', component: GridAppComponent, canActivate: [AuthGuardService], data: { animation: 'AppEditor' }, canDeactivate: [CanDeactivateGaurdService] },
   { path: '', component: GridAppComponent },
 
   { path: 'login', component: LoginComponent, data: { animation: 'Login' } },
@@ -23,7 +24,8 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   providers: [
-    CanDeactivateGaurdService
+    CanDeactivateGaurdService,
+    AuthGuardService,
   ],
   exports: [RouterModule]
 })

@@ -13,12 +13,18 @@
                         internet-connected device. Just hold the internet connect until done with your mind.
                     </p>
                 </div>
-                <div class="btn-wrap">
+                <div class="btn-wrap" *ngIf="show">
                     <button routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page">
                         Login
                     </button>
                     <button routerLink="/sign-in" routerLinkActive="active" ariaCurrentWhenActive="page">
                         Sign In
+                    </button>
+                </div>
+                <div class="btn-wrap" *ngIf="!show">
+
+                    <button routerLink="/editapplication" routerLinkActive="active" ariaCurrentWhenActive="page">
+                        Start Your Project
                     </button>
                 </div>
             </div>

@@ -29,5 +29,7 @@ export class DashboardComponent implements OnInit {
   ]
   ngOnInit(): void {
   }
+  deleteRecord(id: string) {
 
+  }
 }

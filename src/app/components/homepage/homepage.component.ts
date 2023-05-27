@@ -8,8 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class HomepageComponent implements OnInit {
 
   constructor() { }
-
+  isLogIned: any
+  show: boolean = true
   ngOnInit(): void {
+    this.isLogIned = localStorage.getItem('token')
+    if (this.isLogIned) {
+      this.show = false
+    }
   }
 
 }

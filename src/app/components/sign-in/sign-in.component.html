@@ -1,15 +1,18 @@
-<div class="wrap" *ngIf="isLoad">
+<div class="wrap">
     <div class="inside-wrap">
         <div class="sign-In" id="sign-In" [@modalState]="isShow">
-            <label for="email">Email</label>
-            <input class="email" type="email" id="email" />
-            <label for="nickname">Nickname</label>
-            <input class="nickname" type="text" id="nickname" />
-            <div class="btn">
-                <button id="sign-in" (click)="signIn()">
-                    Sign In
-                </button>
-            </div>
+            <form [formGroup]="signUpForm" (ngSubmit)="signIn()">
+                <label for="email">Email</label>
+                <input class="email" type="email" id="email" formControlName="email" />
+                <label for="nickname">Nickname</label>
+                <input class="nickname" type="text" id="nickname" formControlName="nickname" />
+                <div class="btn">
+                    <button id="sign-in" type="submit" [disabled]="!signUpForm.valid">
+                        Sign In
+                    </button>
+                </div>
+            </form>
+
         </div>
         <div class="check-email" [@modalState]="!isShow">
             <p>

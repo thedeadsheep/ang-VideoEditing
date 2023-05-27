@@ -18,7 +18,9 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { CanDeactivateGaurdService } from './services/deactive-guard.service';
-import { SignInComponent } from './components/sign-in/sign-in.component'
+import { AuthGuardService } from './services/canactive-guard.service'
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { LayoutComponent } from './components/layout/layout.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +34,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component'
     LoginComponent,
     DashboardComponent,
     SignInComponent,
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component'
     HttpClientModule,
     BrowserAnimationsModule
   ],
-  providers: [CanDeactivateGaurdService],
+  providers: [CanDeactivateGaurdService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

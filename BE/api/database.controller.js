@@ -15,6 +15,7 @@ module.exports = {
     userRegister: (req, res) => {
         const body = req.body
         const email = body.email
+        console.log(body)
         createUser(body, (err, result) => {
             if (err) {
                 if (err.errno == 1062) {
@@ -46,8 +47,7 @@ module.exports = {
         })
     },
     getPassword: (req, res) => {
-        var email = req.body.email
-
+        var email = req.query.email
         //Create OTP
         const OTP = Math.floor(100000 + Math.random() * 900000)
         const salt = genSaltSync(10)
@@ -87,6 +87,7 @@ module.exports = {
 
     },
     login: (req, res) => {
+        console.log(req.body)
         const email = req.body.email
         const password = req.body.password
         getPassword(email, (err, results) => {

@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { animate, query, state, style, transition, trigger } from '@angular/animations';
 
+import { FormBuilder, Validators } from '@angular/forms';
+import { animate, query, state, style, transition, trigger } from '@angular/animations';
+import { UserServicesService } from 'src/app/services/user-services.service';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -32,16 +34,29 @@ import { animate, query, state, style, transition, trigger } from '@angular/anim
 })
 export class SignInComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  constructor(private userServices: UserServicesService,
+    public formBuilder: FormBuilder) { }
+  signUpForm = this.formBuilder.group({
+    email: ['', [Validators.required, Validators.email]],
+    nickname: ['', [Validators.required, Validators.maxLength(30)]]
+  })
   isShow: boolean = true
-  isLoad: boolean = true
   ngOnInit(): void {
 
   }
   ngOnDestroy(): void {
-    this.isLoad = false
   }
   signIn() {
-    this.isShow = !this.isShow
+    console.log(this.signUpForm.value)
+    this.userServices.register(this.signUpForm.value).subscribe(
+      res => {
+        console.log(res)
+
+        this.isShow = !this.isShow
+      },
+      err => {
+        console.log(err)
+      }
+    )
   }
 }

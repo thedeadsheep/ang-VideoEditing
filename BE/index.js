@@ -24,7 +24,7 @@ app.use(cors())
 app.delete('/deleteVideoData', deleteVideoById);
 app.post('/renderVideo', renderVideo);
 app.get('/confirmUser', confirmUser);
-app.get('/newUser', userRegister);
+app.post('/newUser', userRegister);
 app.get('/getOTP', getPassword);
 app.post('/login', login);
 

@@ -13,6 +13,9 @@
             <th>
                 Video Link
             </th>
+            <th>
+                Function
+            </th>
         <tr *ngFor="let item of sampleData">
             <td>
                 {{item.video_id}}
@@ -25,6 +28,11 @@
             </td>
             <td>
                 {{item.video_link}}
+            </td>
+            <td>
+                <button (click)="deleteRecord(item.video_id)">
+                    X
+                </button>
             </td>
         </tr>
 

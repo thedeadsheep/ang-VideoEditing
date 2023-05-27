@@ -37,8 +37,7 @@ export class GridAppComponent implements OnInit, IDeactivateComponent {
     }
   }
   ngOnDestroy(): void {
-    console.log('detroy')
-    localStorage.clear()
+    localStorage.removeItem('sessionID')
   }
   ngOnInit(): void {
     if (window.innerWidth < 770) {

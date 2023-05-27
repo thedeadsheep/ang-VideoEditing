@@ -71,7 +71,7 @@ box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     margin-top: 5px;
 
     min-height: 45px;
-    min-width: 125px;
+    min-width: 150px;
     outline: none;
     border-radius: 20px;
     margin-right: 20px;
@@ -81,11 +81,11 @@ box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     color: black;
     font-weight: 700;
     border: none;
+    padding: 0 8px;
     letter-spacing: 1px;
     font-size: larger;
 }
 .btn-wrap button:nth-child(odd){
-    width: 150px;
     border: 2px solid white;
     color: white;
     background-color: transparent;

@@ -1,6 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { UserServicesService } from 'src/app/services/user-services.service';
 
 
 @Component({
@@ -31,18 +32,48 @@ import { Component, OnInit } from '@angular/core';
   ],
 })
 export class LoginComponent implements OnInit {
+  isLogIned: string | null | undefined;
 
-  constructor() { }
+  constructor(
+    private userService: UserServicesService,
+    private router: Router
+  ) { }
+
+
   isShow: boolean = true
-  show: string = 'none'
   ngOnInit(): void {
+    this.isLogIned = localStorage.getItem('token')
+    if (this.isLogIned) {
+      this.router.navigate(['/dashboard'])
+    }
   }
 
   getPassword() {
-
-    this.isShow = !this.isShow
+    var email = <HTMLInputElement>document.getElementById('email')
+    this.userService.getPassword(email.value).subscribe(
+      res => {
+        console.log(res)
+        this.isShow = !this.isShow
+      },
+      err => {
+        console.log(err)
+      }
+    )
 
   }
   login() {
+    var email = <HTMLInputElement>document.getElementById('email')
+    var password = <HTMLInputElement>document.getElementById('password')
+    this.userService.login({ email: email.value, password: password.value }).subscribe(
+      res => {
+        var data = res
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('displayname', data.displayName)
+        window.location.reload()
+      }, err => {
+        console.log(err)
+      }
+
+    )
   }
 }

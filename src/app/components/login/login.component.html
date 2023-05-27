@@ -1,8 +1,11 @@
 <div class="wrap">
     <div class="inside-wrap">
+
         <div class="input-email-state" id="input-email-state" [@modalState]="isShow">
+
             <label for="email">Email</label>
             <input class="email" type="email" id="email" />
+
             <div class="btn">
                 <button id="input-state" (click)="getPassword()">
                     Get Password
@@ -10,18 +13,22 @@
             </div>
         </div>
 
+
         <div class="input-password-state" id="login-state" [@modalState]="!isShow">
 
             <label for="email">Password <p>
                     Check your Email to get Password
                 </p></label>
-            <input class="password" type="password" />
+            <input class="password" type="password" id="password" />
             <div class="btn">
                 <button id="input-state" (click)="login()">
                     Login
                 </button>
             </div>
+
+
         </div>
+
 
     </div>
 
