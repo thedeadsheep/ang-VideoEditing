@@ -1,6 +1,6 @@
 const { renderVideo } = require("./api/ffmpeg.controller")
 const { createSessionId, deleteCache, } = require("./api/server.service")
-const { userRegister, getPassword, login, confirmUser, deleteVideoById } = require('./api/database.controller')
+const { userRegister, getPassword, login, confirmUser, deleteVideoById, getVideoDataByEmail } = require('./api/database.controller')
 const express = require('express')
 
 
@@ -11,6 +11,7 @@ const bodyparser = require('body-parser')
 const path = require('path')
 
 const multer = require('multer')
+const { checkToken } = require("./api/auth.service")
 
 const app = express()
 
@@ -21,8 +22,9 @@ app.use(bodyparser.json())
 
 app.use(cors())
 
-app.delete('/deleteVideoData', deleteVideoById);
-app.post('/renderVideo', renderVideo);
+app.get('/getVideoDataByEmail', checkToken, getVideoDataByEmail)
+app.delete('/deleteVideoData', checkToken, deleteVideoById);
+app.post('/renderVideo', checkToken, renderVideo);
 app.get('/confirmUser', confirmUser);
 app.post('/newUser', userRegister);
 app.get('/getOTP', getPassword);

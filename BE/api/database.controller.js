@@ -3,7 +3,8 @@ const {
     updateColumn,
     getPassword,
     getValue,
-    deleteVideoData
+    deleteVideoData,
+    getVideoData
 } = require('./database.service')
 
 const host = 'http://localhost:3000/'
@@ -111,6 +112,15 @@ module.exports = {
                 })
             }
             const token = sign({ email: email }, 'denvau', { expiresIn: '3h' })
+            updateColumn({ column: `otp`, changeValue: 'none', email: email }, (err, result) => {
+                if (err) {
+                    return res.status(500).json({
+                        success: 0,
+                        message: "Database connection error"
+                    })
+                }
+            })
+
             return res.status(200).json({
                 success: 1,
                 message: "Login success",
@@ -153,10 +163,10 @@ module.exports = {
             })
     },
     deleteVideoById: (req, res) => {
-        const body = req.query.video_id
-        console.log(body)
+        const videoID = req.query.video_id
+        const email = req.query.email
 
-        deleteVideoData({ video_id: body },
+        deleteVideoData({ video_id: videoID, email: email },
             (error, result) => {
                 if (error) {
                     return res.status(500).json({
@@ -169,5 +179,32 @@ module.exports = {
                     message: "Delete Done"
                 })
             })
+    },
+    getVideoDataByEmail: (req, res) => {
+        const email = req.query.email
+        console.log(email)
+
+        getVideoData(email, (err, results) => {
+            if (err) {
+                console.log(err)
+            }
+            var returnData = []
+            console.log(results)
+            results.forEach(element => {
+                var temp = {
+                    video_id: element.video_id,
+                    projectName: element.project_name,
+                    status: element.video_status,
+                    video_link: element.video_link
+                }
+                returnData.push(temp)
+            })
+            console.log(returnData)
+            return res.status(200).json({
+                success: 1,
+                data: returnData
+            })
+        })
     }
+
 }

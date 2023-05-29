@@ -1,40 +1,54 @@
 <div class="wrap">
-    <table style="width: 100%">
-        <tr>
-            <th>
-                Video Id
-            </th>
-            <th>
-                Project Name
-            </th>
-            <th>
-                Status
-            </th>
-            <th>
-                Video Link
-            </th>
-            <th>
-                Function
-            </th>
-        <tr *ngFor="let item of sampleData">
-            <td>
-                {{item.video_id}}
-            </td>
-            <td>
-                {{item.projectName}}
-            </td>
-            <td>
-                {{item.status}}
-            </td>
-            <td>
-                {{item.video_link}}
-            </td>
-            <td>
-                <button (click)="deleteRecord(item.video_id)">
-                    X
-                </button>
-            </td>
-        </tr>
+    <button class="new-project-btn" routerLink="/editapplication" routerLinkActive="active"
+        ariaCurrentWhenActive="page">
+        Start new Project
+    </button>
+    <div class="wrap-content">
+        <div class="table-content">
+            <div class="title gridview">
+                <div class="item">
+                    SID
+                </div>
+                <div class="item">
+                    Project Name
+                </div>
+                <div class="item">
+                    Status
+                </div>
+                <div class="item">
+                    Video Link
+                </div>
+                <div class="item">
 
-    </table>
+                </div>
+            </div>
+            <div class="content gridview" *ngFor="let item of sampleData">
+                <div class="item">
+                    {{item.video_id}}
+                </div>
+                <div class="item project-name">
+                    {{item.projectName}}
+                </div>
+                <div class="item">
+                    <div *ngIf="item.status" class="done">
+                        Done
+                    </div>
+                    <div *ngIf="!item.status" class="pending">
+                        On Pending
+                    </div>
+                </div>
+                <a class="item video-link" [href]="item.video_link" target="_blank">
+                    {{item.video_link}}
+                </a>
+                <div class="item">
+                    <button (click)="deleteRecord(item.video_id)" class="delete-btn">
+                        X
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 </div>

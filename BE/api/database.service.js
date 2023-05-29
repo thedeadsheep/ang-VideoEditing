@@ -43,10 +43,8 @@ module.exports = {
             ],
             (error, results, fields) => {
                 if (error) {
-                    console.log(error)
                     return callBack(error)
                 }
-                console.log(results)
                 return callBack(null, results[0])
             }
         )
@@ -94,10 +92,8 @@ module.exports = {
             ],
             (error, results, fields) => {
                 if (error) {
-                    console.log(error)
                     return callBack(error)
                 }
-                console.log(results)
                 return callBack(null, results[0])
             }
         )
@@ -110,16 +106,16 @@ module.exports = {
             ],
             (error, results, field) => {
                 if (error) return callBack(error)
-                return callBack(null, results[0])
+                return callBack(null, results)
             }
         )
     },
     deleteVideoData: (data, callBack) => {
-        console.log(data)
         pool.query(
-            `DELETE FROM project_data WHERE video_id = ?`,
+            `DELETE FROM project_data WHERE video_id = ? and email = ?`,
             [
-                data.video_id
+                data.video_id,
+                data.email
             ],
             (error, result, field) => {
                 if (error) return callBack(error)

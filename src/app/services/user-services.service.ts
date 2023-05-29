@@ -27,6 +27,15 @@ export class UserServicesService {
       password: data.password
     })
   }
-
+  getVideoData(data: any) {
+    if (this.headers instanceof HttpHeaders) {
+      return this.http.get<any>(WEB_API + `getVideoDataByEmail?email=${data.email}`, { headers: this.headers })
+    } return this.http.get<any>(WEB_API + `getVideoDataByEmail?email=${data.email}`)
+  }
+  deleteVideoData(data: any) {
+    if (this.headers instanceof HttpHeaders) {
+      return this.http.delete<any>(WEB_API + `deleteVideoData?email=${data.email}&video_id=${data.videoID}`, { headers: this.headers })
+    } return this.http.delete<any>(WEB_API + `deleteVideoData?email=${data.email}&video_id=${data.videoID}`)
+  }
 
 }

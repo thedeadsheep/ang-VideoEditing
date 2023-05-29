@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { UserServicesService } from 'src/app/services/user-services.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: UserServicesService) { }
+  email: string | any = localStorage.getItem('email')
   sampleData: any = [
     {
       video_id: 'asdas',
@@ -28,8 +29,34 @@ export class DashboardComponent implements OnInit {
     }
   ]
   ngOnInit(): void {
+    this.getData()
   }
   deleteRecord(id: string) {
+    console.log(this.email, id)
+    if (this.email) {
+      this.userService.deleteVideoData({ email: this.email, videoID: id }).subscribe(
+        res => {
+          console.log('done')
+          window.location.reload()
+        },
+        err => {
+          console.log(err)
+        }
+      )
+    }
+  }
+  getData() {
+    if (this.email) {
+      this.userService.getVideoData({ email: this.email }).subscribe(
+        res => {
+          this.sampleData = res.data
+          console.log(res)
+        },
+        err => {
+          console.log(err)
+        }
+      )
 
+    }
   }
 }

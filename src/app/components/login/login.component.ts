@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit {
         var data = res
         localStorage.setItem('token', data.token);
         localStorage.setItem('displayname', data.displayName)
+        localStorage.setItem('email', email.value)
         window.location.reload()
       }, err => {
         console.log(err)

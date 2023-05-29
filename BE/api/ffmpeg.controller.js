@@ -2,6 +2,9 @@
 const {
     trim, merge, speedUpVideo, changeFrameSingleVideo, addColorFilter
 } = require("./ffmpeg-function.service")
+const {
+    newSection,
+} = require('./database.service')
 const { uploadToCloud } = require('./mail.service')
 const path = require('path')
 
@@ -10,10 +13,16 @@ module.exports = {
     renderVideo: async (req, res) => {
         var renderReq = req.body
         console.log(renderReq)
+        var email = renderReq.email
+        var projectName = renderReq.projectName
         var sId = renderReq.sessionID
         var files = renderReq.videoProcess
         var frameRatio = renderReq.videoRatio.resolu
         var extensionName = renderReq.extensionName
+        newSection({ email: email, videoSection: sId, projectName: projectName }, (error, results) => {
+            if (error) { console.log(error) }
+            console.log(results)
+        })
         console.log(extensionName)
 
         var cutTimes = files.length
@@ -50,7 +59,7 @@ module.exports = {
         }
         sendFile = "uploads\\" + sId + "\\" + finalFile.editedName
         if (renderReq.email) {
-            var kqReturn = await uploadToCloud(sendFile, renderReq.email)
+            var kqReturn = await uploadToCloud(sendFile, renderReq.email, sId)
             res.send({
                 message: "Please Check Your Mail!"
             })

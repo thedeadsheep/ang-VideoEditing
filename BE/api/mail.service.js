@@ -1,9 +1,12 @@
 var nodemailer = require('nodemailer');
 const cloudinary = require('cloudinary').v2
 const dotenv = require('dotenv')
+const {
+    updateSection,
+} = require('./database.service')
 dotenv.config()
 module.exports = {
-    uploadToCloud: async (filePath, email) => {
+    uploadToCloud: async (filePath, email, sId) => {
         const file = filePath
         cloudinary.config({
             cloud_name: process.env.CLOUD_NAME,
@@ -26,7 +29,10 @@ module.exports = {
                         pass: process.env.EMAIL_PASSWORD
                     }
                 });
-
+                updateSection({ video_link: kq.url, email: email, videoSection: sId }, (error, result) => {
+                    if (error) console.log(error)
+                    console.log(result)
+                })
                 var mailOptions = {
                     from: `VideoRender <noreply.${process.env.EMAIL}>`,
                     to: email,

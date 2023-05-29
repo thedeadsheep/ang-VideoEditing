@@ -8,6 +8,7 @@ const WEB_API: string = "http://localhost:3000/"
 export class SourceServiceService {
 
   constructor(private http: HttpClient) { }
+
   uploadSource(formdata: FormData, sessionID: string) {
 
     let sId: string
@@ -18,7 +19,9 @@ export class SourceServiceService {
     }
 
 
+
     return this.http.post<any>(WEB_API + "multiple/" + sId, formdata);
+
     //return name of file on server
   }
 }

@@ -89,15 +89,28 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <div>
+                <div class="modal-item">
+                    <form [formGroup]="projectName">
+                        <div class="project-name">
+                            <p>
+                                Project Name
+                            </p>
+                            <input type="text" formControlName="pName" class="input-pName">
+                        </div>
+
+                    </form>
+                </div>
+
+
+                <div class="modal-item">
                     <button (click)="reload()" class="btn-load-preview">loadreview</button>
                 </div>
-                <div class="video-preview" *ngIf="loadPreview">
+                <div class="video-preview modal-item" *ngIf="loadPreview">
                     <app-preview [videoArray]="mergeData" (filterInfoEmit)="getLUT($event)">
 
                     </app-preview>
                 </div>
-                <div class="video-optional">
+                <div class="video-optional modal-item">
                     <span>
                         Extension Name
                         <select class="form-select" id="extension-name">
@@ -125,10 +138,7 @@
                     <span>
                         LutActive: <span id="status" class="deactive-status">Deactive</span>
                     </span>
-                    <span>
-                        Send to your Email? <input type="checkbox" id="email-checkbox" (change)="checkEmail()">
-                        <input type="email" id="email-input" class="mail-input">
-                    </span>
+
                 </div>
 
             </div>
