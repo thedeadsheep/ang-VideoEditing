@@ -20,6 +20,7 @@ export class LayoutComponent implements OnInit {
     this.isLogIned = localStorage.getItem('token')
     if (this.isLogIned) {
       this.show = false
+      this.router.navigate(['/homepage'])
     }
   }
   logout() {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserServicesService } from 'src/app/services/user-services.service';
 @Component({
   selector: 'app-dashboard',
@@ -7,7 +8,8 @@ import { UserServicesService } from 'src/app/services/user-services.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private userService: UserServicesService) { }
+  constructor(private userService: UserServicesService,
+    private router: Router) { }
   email: string | any = localStorage.getItem('email')
   sampleData: any = [
     {
@@ -29,7 +31,12 @@ export class DashboardComponent implements OnInit {
     }
   ]
   ngOnInit(): void {
-    this.getData()
+    if (localStorage.getItem('token')) {
+
+      this.getData()
+    } else {
+      this.router.navigate(['/homepage'])
+    }
   }
   deleteRecord(id: string) {
     console.log(this.email, id)
@@ -53,7 +60,12 @@ export class DashboardComponent implements OnInit {
           console.log(res)
         },
         err => {
-          console.log(err)
+          console.log(err.status)
+          if (err.status = 498) {
+            //Logout
+            localStorage.clear()
+            window.location.reload()
+          }
         }
       )
 

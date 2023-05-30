@@ -11,7 +11,7 @@ const bodyparser = require('body-parser')
 const path = require('path')
 
 const multer = require('multer')
-const { checkToken } = require("./api/auth.service")
+const { checkToken, checkTokenExpired } = require("./api/auth.service")
 
 const app = express()
 
@@ -21,6 +21,8 @@ app.use(bodyparser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
 
 app.use(cors())
+
+app.get('/checkToken', checkTokenExpired)
 
 app.get('/getVideoDataByEmail', checkToken, getVideoDataByEmail)
 app.delete('/deleteVideoData', checkToken, deleteVideoById);

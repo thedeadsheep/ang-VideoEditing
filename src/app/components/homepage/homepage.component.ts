@@ -11,6 +11,7 @@ export class HomepageComponent implements OnInit {
   isLogIned: any
   show: boolean = true
   ngOnInit(): void {
+
     this.isLogIned = localStorage.getItem('token')
     if (this.isLogIned) {
       this.show = false

@@ -76,3 +76,13 @@
   transition: 0.2s ease-in;
   margin: 5px 0px
 }
+.status{
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.status.done{
+  color: green;
+}
+.status.pending{
+  color: yellow;
+}
