@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'homepage', component: HomepageComponent, data: { animation: 'HomePage' } },
   { path: 'dashboard', component: DashboardComponent, data: { animation: 'DashBoard' }, canActivate: [AuthGuardService] },
   { path: 'editapplication', component: GridAppComponent, canActivate: [AuthGuardService], data: { animation: 'AppEditor' }, canDeactivate: [CanDeactivateGaurdService] },
-  { path: '', component: GridAppComponent },
+  { path: '', component: HomepageComponent },
 
   { path: 'login', component: LoginComponent, data: { animation: 'Login' } },
   { path: 'sign-in', component: SignInComponent, data: { animation: 'SignIn' } },
