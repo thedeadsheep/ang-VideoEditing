@@ -8,9 +8,9 @@ describe('GridAppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GridAppComponent ]
+      declarations: [GridAppComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(GridAppComponent);
     component = fixture.componentInstance;
@@ -20,4 +20,5 @@ describe('GridAppComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });
