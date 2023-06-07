@@ -56,6 +56,7 @@ export class SignInComponent implements OnInit, OnDestroy {
       },
       err => {
         console.log(err)
+        alert(err.message)
       }
     )
   }

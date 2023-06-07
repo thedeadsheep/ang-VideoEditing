@@ -57,6 +57,8 @@ export class LoginComponent implements OnInit {
       },
       err => {
         console.log(err)
+
+        alert(err.message)
       }
     )
 
@@ -73,6 +75,7 @@ export class LoginComponent implements OnInit {
         window.location.reload()
       }, err => {
         console.log(err)
+        alert(err.message)
       }
 
     )
